@@ -17,7 +17,7 @@ fn generateIpv4Output(allocator: Allocator, shellcode: []const u8) !bool {
         return false;
     }
 
-    try stdout.print("const ipv4_array = [_][]const u8{{\n\t", .{});
+    try stdout.print("const ipv4_array = [_][*:0]const u8{{\n\t", .{});
 
     // We will read one shellcode byte at a time, when the total is 4, begin generating the IPv4 address
     // The variable 'c' is used to store the number of bytes read. By default, starts at 4.

@@ -27,7 +27,7 @@ fn generateIpv6Output(allocator: Allocator, shellcode: []const u8) !bool {
         return false;
     }
 
-    try stdout.print("const ipv6_array = [_][]const u8{{\n    ", .{});
+    try stdout.print("const ipv6_array = [_][*:0]const u8{{\n    ", .{});
 
     // We will read one shellcode byte at a time, when the total is 16, begin generating the IPv6 address
     // The variable 'c' is used to store the number of bytes read. By default, starts at 16.
