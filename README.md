@@ -14,11 +14,19 @@ Okay, let's hack the planet!
     - [.text section](./Payload-Placement/dot_text_section/)
     - .rsrc section
 2. [Payload Obfuscation](./Payload-Obfuscation/)
+
     - [IP Address Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/)
         - [IPv4 Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv4Fuscation/)
         - [IPv4 Deobfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv4Fuscation/)
         - [IPv6 Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv6Fuscation/)
         - [IPv6 Deobfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv6Deobfuscation/)
+    - [MAC Address Obfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/)
+        - [MAC Address Obfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/MACFuscation/)
+        - [MAC Address Deobfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/MACDeobfuscation/)
+    - [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/)
+        - [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDFuscation/)
+        - [UUID Deobfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDDeobfuscation/)
+
 3. Payload Encryption
     - XOR Encryption
     - RC4 Encryption
