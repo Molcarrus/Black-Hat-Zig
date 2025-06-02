@@ -1,5 +1,31 @@
 # Black-Hat-Zig
 
+<p align="center">
+  <img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/cx330blake/blake-hat-zig/total">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/CX330Blake/black-hat-zig">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/cx330blake/blake-hat-zig">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/cx330blake/blake-hat-zig">
+  <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/CX330Blake">
+</p>
+
+<p align="center">
+  <a href="#whats-zyra">What's ZYRA?</a> •
+  <a href="#showcase">Showcase</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#workflow-under-the-hood">Workflow under the hood</a> •
+  <a href="#packed-binary-structure">Packed binary structure</a> •
+  <a href="#to-do">To Do</a> •
+  <a href="#contribution">Contribution</a> •
+  <a href="#star-history">Star history</a>
+</p>
+
+<p height="300" align="center">
+  <img src="./Black-Hat-Zig.png">
+</p>
+
+## Intro
+
 Hello hackers. Hello maldevs. Hello reversers.
 
 This project provides many malware techniques implementation using Zig since I'm a huge fan of it. But I'm still leaning, so please tell me if there's something wrong or can be optimized. It will be perfect if you want to create a PR for this project.
@@ -38,13 +64,13 @@ You can check the codes inside each directory. Also, if the code uses Windows AP
 
 **Normal binary**
 
-```
+```bash
 zig build
 ```
 
 **Binaries contain Window API**
 
-```
+```bash
 zig build -Dtarget=x86_64-windows
 ```
 
