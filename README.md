@@ -9,13 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="#whats-zyra">What's ZYRA?</a> •
-  <a href="#showcase">Showcase</a> •
-  <a href="#installation">Installation</a> •
+  <a href="#intro">Intro</a> •
+  <a href="#table-of-content">ToC</a> •
   <a href="#usage">Usage</a> •
-  <a href="#workflow-under-the-hood">Workflow under the hood</a> •
-  <a href="#packed-binary-structure">Packed binary structure</a> •
-  <a href="#to-do">To Do</a> •
   <a href="#contribution">Contribution</a> •
   <a href="#star-history">Star history</a>
 </p>
@@ -53,10 +49,10 @@ Okay, let's hack the planet!
         - [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDFuscation/)
         - [UUID Deobfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDDeobfuscation/)
 
-3. Payload Encryption
-    - XOR Encryption
-    - RC4 Encryption
-    - AES Encryption
+3. [Payload Encryption](./Payload-Encrytion/)
+    - [XOR Encryption](./Payload-Encrytion/XOR/)
+    - [RC4 Encryption](./Payload-Encrytion/RC4/)
+    - [AES Encryption](./Payload-Encrytion/AES/)
 
 ## Usage
 
