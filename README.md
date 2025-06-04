@@ -49,10 +49,10 @@ Okay, let's hack the planet!
         - [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDFuscation/)
         - [UUID Deobfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDDeobfuscation/)
 
-3. [Payload Encryption](./Payload-Encrytion/)
-    - [XOR Encryption](./Payload-Encrytion/XOR/)
-    - [RC4 Encryption](./Payload-Encrytion/RC4/)
-    - [AES Encryption](./Payload-Encrytion/AES/)
+3. [Payload Encryption](./Payload-Encryption/)
+    - [XOR Encryption](./Payload-Encryption/XOR/)
+    - [RC4 Encryption](./Payload-Encryption/RC4/)
+    - [AES Encryption](./Payload-Encryption/AES/)
 
 ## Usage
 
