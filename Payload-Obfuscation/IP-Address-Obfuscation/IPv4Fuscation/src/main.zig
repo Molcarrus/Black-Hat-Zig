@@ -8,8 +8,8 @@ fn generateIpv4(allocator: Allocator, a: u8, b: u8, c: u8, d: u8) ![]u8 {
     return try std.fmt.allocPrint(allocator, "{d}.{d}.{d}.{d}", .{ a, b, c, d });
 }
 
-// Generate the IPv4 output representation of the shellcode
-// Function requires a pointer or base address to the shellcode buffer & the size of the shellcode buffer
+/// Generate the IPv4 output representation of the shellcode
+/// Function requires an allocator and shellcode as the input
 fn generateIpv4Output(allocator: Allocator, shellcode: []const u8) !bool {
 
     // If the shellcode buffer is empty or the size is not a multiple of 4, exit
