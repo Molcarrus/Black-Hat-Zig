@@ -33,36 +33,49 @@ Okay, let's hack the planet!
 ## Why Zig?
 
 - Easy to interact with C/C++ source
--
+- It's newer, so it's harder to be detect
+- Strongly low level control, even lower than C
+- It's harder to RE because of the modern compiler
 
-## Code examples
+## Payload Placement
 
-- [Payload Placement](./Payload-Placement/)
-  - [.data section](./Payload-Placement/dot_data_section/)
-  - [.rdata section](./Payload-Placement/dot_rdata_section/)
-  - [.text section](./Payload-Placement/dot_text_section/)
-  - .rsrc section
-- [Payload Obfuscation](./Payload-Obfuscation/)
-  - [IP Address Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/)
-    - [IPv4 Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv4Fuscation/)
-    - [IPv4 Deobfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv4Fuscation/)
-    - [IPv6 Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv6Fuscation/)
-    - [IPv6 Deobfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv6Deobfuscation/)
-  - [MAC Address Obfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/)
-    - [MAC Address Obfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/MACFuscation/)
-    - [MAC Address Deobfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/MACDeobfuscation/)
-  - [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/)
-    - [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDFuscation/)
-    - [UUID Deobfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDDeobfuscation/)
-- [Payload Encryption](./Payload-Encryption/)
-  - [XOR Encryption](./Payload-Encryption/XOR/)
-  - [RC4 Encryption](./Payload-Encryption/RC4/)
-  - [AES Encryption](./Payload-Encryption/AES/)
-- [Payload Execution](./Payload-Execution/)
-  - [DLL](./Payload-Execution/DLL/)
-  - [Shellcode](./Payload-Execution/Shellcode/)
-- [Reverse Shell](./Reverse-Shell/)
-  - [Reverse Shell with standard library](./Reverse-Shell/stdRevShell/)
+- [.data section](./Payload-Placement/dot_data_section/)
+- [.rdata section](./Payload-Placement/dot_rdata_section/)
+- [.text section](./Payload-Placement/dot_text_section/)
+- .rsrc section
+
+## Payload Obfuscation
+
+- [IP Address Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/)
+  - [IPv4 Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv4Fuscation/)
+  - [IPv4 Deobfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv4Fuscation/)
+  - [IPv6 Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv6Fuscation/)
+  - [IPv6 Deobfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/IPv6Deobfuscation/)
+- [MAC Address Obfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/)
+  - [MAC Address Obfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/MACFuscation/)
+  - [MAC Address Deobfuscation](./Payload-Obfuscation/MAC-Address-Obfuscation/MACDeobfuscation/)
+- [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/)
+  - [UUID Obfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDFuscation/)
+  - [UUID Deobfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDDeobfuscation/)
+
+## Payload Encryption
+
+- [XOR Encryption](./Payload-Encryption/XOR/)
+- [RC4 Encryption](./Payload-Encryption/RC4/)
+- [AES Encryption](./Payload-Encryption/AES/)
+
+## Payload Execution
+
+- [DLL](./Payload-Execution/DLL/)
+- [Shellcode](./Payload-Execution/Shellcode/)
+
+## Reverse Shell
+
+- [Reverse Shell with standard library](./Reverse-Shell/stdRevShell/)
+
+## Malware Techniques
+
+- [Process Injection](./Malware-Techniques/Process-Injection/)
 
 ## Compiling the codes
 
