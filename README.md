@@ -22,27 +22,30 @@
 
 ## Intro
 
-Hello hackers. Hello maldevs. Hello reversers.
+> [!IMPORTANT]
+> This project is continuously updating!
+
+Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the power of Zig.
 
 This project provides many malware techniques implementation using Zig since I'm a huge fan of it. You can use this repo to weaponize Zig.
 
-It will be perfect if you want to create a PR for this project.
+This project is continuously updating to make sure it contains as more content as it could. It will be perfect if you want to create a PR for this project.
 
 Okay, let's hack the planet!
 
 ## Why Zig?
 
-- Easy to interact with C/C++ source
-- It's newer, so it's harder to be detect
-- Strongly low level control, even lower than C
-- It's harder to RE because of the modern compiler
+- 🤝 Easy to interact with C/C++ source
+- 🔎 It's newer, so it's harder to be detect
+- 💪 Strongly low level control, even lower than C
+- 😱 It's harder to RE because of the modern compiler
 
 ## Payload Placement
 
-- [.data section](./Payload-Placement/dot_data_section/)
-- [.rdata section](./Payload-Placement/dot_rdata_section/)
-- [.text section](./Payload-Placement/dot_text_section/)
-- .rsrc section
+- [.data Section](./Payload-Placement/dot_data_section/)
+- [.rdata Section](./Payload-Placement/dot_rdata_section/)
+- [.text Section](./Payload-Placement/dot_text_section/)
+- [.rsrc Section](./Payload-Placement/dot_rsrc_section/)
 
 ## Payload Obfuscation
 
@@ -61,8 +64,13 @@ Okay, let's hack the planet!
 ## Payload Encryption
 
 - [XOR Encryption](./Payload-Encryption/XOR/)
+  - [XOR With Standard Library](./Payload-Encryption/XOR/std_lib_xor/)
 - [RC4 Encryption](./Payload-Encryption/RC4/)
+  - [RC4 With SystemFunction032](./Payload-Encryption/RC4/system_function_032_rc4/)
 - [AES Encryption](./Payload-Encryption/AES/)
+  - [AES With Bcrypt.h](./Payload-Encryption/AES/bcrypt_aes/)
+  - [AES With Standard Library](./Payload-Encryption/AES/std_aes/)
+  - [AES With TinyAES](./Payload-Encryption/AES/tiny_aes/)
 
 ## Payload Execution
 
@@ -71,31 +79,35 @@ Okay, let's hack the planet!
 
 ## Reverse Shell
 
-- [Reverse Shell with standard library](./Reverse-Shell/stdRevShell/)
+- [Reverse Shell With Standard Library](./Reverse-Shell/stdRevShell/)
 
 ## Malware Techniques
 
 - [Process Injection](./Malware-Techniques/Process-Injection/)
+  - [DLL Injection](./Malware-Techniques/Process-Injection/dll_injection/)
+  - [Shellcode Injection](./Malware-Techniques/Process-Injection/shellcode_injection/)
+- [Payload Staging](./Malware-Techniques/Payload-Staging/)
+  - [From Web Server](./Malware-Techniques/Payload-Staging/web_server/)
+  - [From Windows Registry](./Malware-Techniques/Payload-Staging/windows_registry/)
 
 ## Compiling the codes
 
-You can check the codes inside each directory. Also, if the code uses Windows API, remember to compile it with `-Dtarget=x86_64-windows` flag (thanks for the cross compilation capability of Zig). So following are commands to copy and paste.
+You can check the codes inside each directory. Also, if the code uses Windows API, you will see the hint in the corresponding project directory `README.md`, for example, [this one](./Payload-Encryption/AES/bcrypt_aes/).
 
-**Normal binary**
+I've already set the corresponding default building target to `windows-x86_64` for those needed a Windows API, so you can easily copy & paste the following command to compile the code wherever you are on Linux, Windows, even MacOS! (But you still need a Windows environment to run the executables)
 
 ```bash
 zig build
 ```
 
-**Binaries using Windows API**
-
-```bash
-zig build -Dtarget=x86_64-windows
-```
-
 ## Contribution
 
 This project is currently maintained by [@CX330Blake](https://github.com/CX330Blake). PRs are welcomed. Hope there's more people use Zig for malware developing so the ecosystem will be more mature.
+
+## Credits & References
+
+- [Maldev Academy](https://maldevacademy.com/)
+- [OffensiveNim](https://github.com/byt3bl33d3r/OffensiveNim)
 
 ## Disclaimer
 
