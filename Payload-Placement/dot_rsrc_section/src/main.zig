@@ -2,9 +2,6 @@ const std = @import("std");
 const windows = std.os.windows;
 const print = std.debug.print;
 
-// @NUL0x4C | @mrd0x : MalDevAcademy
-// Zig port by CX330Blake - 2025-06-09 00:54:23
-
 // Embed the payload directly - let the linker handle section placement
 const payload_data = @embedFile("calc.ico");
 
@@ -19,17 +16,6 @@ fn waitForEnter(message: []const u8) void {
 }
 
 pub fn main() !void {
-    print("\n", .{});
-    print("═══════════════════════════════════════════════════════════════\n", .{});
-    print("              BLACK-HAT-ZIG EMBEDDED PAYLOAD                  \n", .{});
-    print("           Windows-Compatible Approach                       \n", .{});
-    print("═══════════════════════════════════════════════════════════════\n", .{});
-    print(" Original: @NUL0x4C | @mrd0x : MalDevAcademy                  \n", .{});
-    print(" Zig Port: CX330Blake - 2025-06-09 00:54:23 UTC              \n", .{});
-    print(" Framework: Black-Hat-Zig Payload Storage Framework           \n", .{});
-    print("═══════════════════════════════════════════════════════════════\n", .{});
-    print("\n", .{});
-
     // Access the embedded payload
     const p_payload_address = &embedded_payload;
     const s_payload_size = embedded_payload.len;

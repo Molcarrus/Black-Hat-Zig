@@ -1,9 +1,6 @@
 const std = @import("std");
 const print = std.debug.print;
 
-// @NUL0x4C | @mrd0x : MalDevAcademy
-// Zig port by CX330Blake - 2025-06-08 23:27:47
-
 // msfvenom calc shellcode
 // msfvenom -p windows/x64/exec CMD=calc.exe -f c
 // .text saved payload - most elegant approach with automatic inference

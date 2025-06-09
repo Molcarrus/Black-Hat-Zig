@@ -1,0 +1,18 @@
+name: Build All
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install Zig
+              uses: mlugg/setup-zig@v2
+              with:
+                  version: 0.14.0
+            - name: Build all projects
+              run: ./scripts/build_all.sh

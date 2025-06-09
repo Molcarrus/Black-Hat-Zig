@@ -5,7 +5,7 @@ const time = std.time;
 const print = std.debug.print;
 
 const c = @cImport({
-    @cInclude("aes.h");
+    @cInclude("./aes.h");
 });
 
 const BOOL = i32;
