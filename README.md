@@ -42,6 +42,7 @@
 - [Payload Execution](#payload-execution)
 - [Reverse Shell](#reverse-shell)
 - [Malware Techniques](#malware-techniques)
+- [Maldev Tools](#maldev-tools)
 - [Contribution](#contribution)
 - [Credits & References](#credits--references)
 - [Disclaimer](#disclaimer)
@@ -131,6 +132,13 @@ A collection of common offensive tradecraft techniques adapted to Zig.
 - [Payload Staging](./Malware-Techniques/Payload-Staging/)
   - [From Web Server](./Malware-Techniques/Payload-Staging/web_server/)
   - [From Windows Registry](./Malware-Techniques/Payload-Staging/windows_registry/)
+
+## Maldev Tools
+
+- [ZYRA: Your Runtime Armor](https://github.com/cx330blake/zyra)
+  - An executable packer written in Zig
+- [ZYPE: Your Payload Encryptor](https://github.com/cx330blake/zype)
+  - Generate a code template in Zig containing your encrypted/obfuscated payload and the corresponding decrypting/deobfuscating function.
 
 ## Contribution
 
