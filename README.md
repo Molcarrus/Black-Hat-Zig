@@ -44,6 +44,7 @@
 - [Maldev Tools](#maldev-tools)
 - [Contribution](#contribution)
 - [Credits & References](#credits--references)
+- [Star History](#star-history)
 - [Disclaimer](#disclaimer)
 
 ## Intro
@@ -147,6 +148,10 @@ This project is currently maintained by [@CX330Blake](https://github.com/CX330Bl
 
 - [Maldev Academy](https://maldevacademy.com/)
 - [OffensiveNim](https://github.com/byt3bl33d3r/OffensiveNim)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=cx330blake/black-hat-zig&type=Date)](https://www.star-history.com/#cx330blake/black-hat-zig&Date)
 
 ## Disclaimer
 
