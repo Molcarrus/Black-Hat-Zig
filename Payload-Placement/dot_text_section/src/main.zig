@@ -1,12 +1,13 @@
 const std = @import("std");
 const print = std.debug.print;
 
+// @NUL0x4C | @mrd0x : MalDevAcademy
+// Zig port by CX330Blake - 2025-06-08 23:27:47
+
 // msfvenom calc shellcode
 // msfvenom -p windows/x64/exec CMD=calc.exe -f c
-// .rdata saved payload
-//
-// use `const` to put it in .rdata (read-only data)
-const rdata_section_payload = [_]u8{
+// .text saved payload - most elegant approach with automatic inference
+const text_section_payload linksection(".text") = [_]u8{
     0xFC, 0x48, 0x83, 0xE4, 0xF0, 0xE8, 0xC0, 0x00, 0x00, 0x00, 0x41, 0x51,
     0x41, 0x50, 0x52, 0x51, 0x56, 0x48, 0x31, 0xD2, 0x65, 0x48, 0x8B, 0x52,
     0x60, 0x48, 0x8B, 0x52, 0x18, 0x48, 0x8B, 0x52, 0x20, 0x48, 0x8B, 0x72,
@@ -32,15 +33,17 @@ const rdata_section_payload = [_]u8{
     0xDA, 0xFF, 0xD5, 0x63, 0x61, 0x6C, 0x63, 0x00,
 };
 
-// Helper function to wait for Enter key
+/// Helper function to wait for Enter key
+/// Similar usage as `getchar()` in C
 fn waitForEnter() void {
     var buffer: [256]u8 = undefined;
     _ = std.io.getStdIn().reader().readUntilDelimiterOrEof(buffer[0..], '\n') catch {};
 }
 
 pub fn main() !void {
-    print("[i] Payload address: 0x{X} \n", .{@intFromPtr(&rdata_section_payload)});
-    print("[i] Data size: {d} bytes\n", .{rdata_section_payload.len});
+    print("[i] Payload address: 0x{X} \n", .{@intFromPtr(&text_section_payload)});
+    print("[i] Data size: {d} bytes\n", .{text_section_payload.len});
+    print("[i] Payload stored in .text section (executable)\n", .{});
     print("[#] Press <Enter> To Quit ...", .{});
     waitForEnter();
 }

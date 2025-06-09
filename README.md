@@ -10,10 +10,17 @@
 
 <p align="center">
   <a href="#intro">Intro</a> •
-  <a href="#table-of-content">ToC</a> •
-  <a href="#usage">Usage</a> •
+  <a href="#why-zig-">Why Zig?</a> •
+  <a href="#compiling-the-codes">Compiling the codes</a> •
+  <a href="#payload-placement">Payload Placement</a> •
+  <a href="#payload-obfuscation">Payload Obfuscation</a> •
+  <a href="#payload-encryption">Payload Encryption</a> •
+  <a href="#payload-execution">Payload Execution</a> •
+  <a href="#reverse-shell">Reverse Shell</a> •
+  <a href="#malware-techniques">Malware Techniques</a> •
   <a href="#contribution">Contribution</a> •
-  <a href="#star-history">Star history</a>
+  <a href="#credits--references">Credits & References</a> •
+  <a href="#disclaimer">Disclaimer</a>
 </p>
 
 <p height="300" align="center">
@@ -39,6 +46,16 @@ Okay, let's hack the planet!
 - 🔎 It's newer, so it's harder to be detect
 - 💪 Strongly low level control, even lower than C
 - 😱 It's harder to RE because of the modern compiler
+
+## Compiling the codes
+
+You can check the codes inside each directory. Also, if the code uses Windows API, you will see the hint in the corresponding project directory `README.md`, for example, [this one](./Payload-Encryption/AES/bcrypt_aes/).
+
+I've already set the corresponding default building target to `windows-x86_64` for those needed a Windows API, so you can easily copy & paste the following command to compile the code wherever you are on Linux, Windows, even MacOS! (But you still need a Windows environment to run the executables)
+
+```bash
+zig build
+```
 
 ## Payload Placement
 
@@ -89,16 +106,6 @@ Okay, let's hack the planet!
 - [Payload Staging](./Malware-Techniques/Payload-Staging/)
   - [From Web Server](./Malware-Techniques/Payload-Staging/web_server/)
   - [From Windows Registry](./Malware-Techniques/Payload-Staging/windows_registry/)
-
-## Compiling the codes
-
-You can check the codes inside each directory. Also, if the code uses Windows API, you will see the hint in the corresponding project directory `README.md`, for example, [this one](./Payload-Encryption/AES/bcrypt_aes/).
-
-I've already set the corresponding default building target to `windows-x86_64` for those needed a Windows API, so you can easily copy & paste the following command to compile the code wherever you are on Linux, Windows, even MacOS! (But you still need a Windows environment to run the executables)
-
-```bash
-zig build
-```
 
 ## Contribution
 
