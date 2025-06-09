@@ -8,35 +8,50 @@
   <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/CX330Blake">
 </p>
 
-<p align="center">
-  <a href="#intro">Intro</a> •
-  <a href="#why-zig-">Why Zig?</a> •
-  <a href="#compiling-the-codes">Compiling the codes</a> •
-  <a href="#payload-placement">Payload Placement</a> •
-  <a href="#payload-obfuscation">Payload Obfuscation</a> •
-  <a href="#payload-encryption">Payload Encryption</a> •
-  <a href="#payload-execution">Payload Execution</a> •
-  <a href="#reverse-shell">Reverse Shell</a> •
-  <a href="#malware-techniques">Malware Techniques</a> •
-  <a href="#contribution">Contribution</a> •
-  <a href="#credits--references">Credits & References</a> •
-  <a href="#disclaimer">Disclaimer</a>
+<!-- <p align="center"> -->
+<!--   <a href="#intro">Intro</a> • -->
+<!--   <a href="#why-zig-">Why Zig?</a> • -->
+<!--   <a href="#compiling-the-codes">Compiling the codes</a> • -->
+<!--   <a href="#payload-placement">Payload Placement</a> • -->
+<!--   <a href="#payload-obfuscation">Payload Obfuscation</a> • -->
+<!--   <a href="#payload-encryption">Payload Encryption</a> • -->
+<!--   <a href="#payload-execution">Payload Execution</a> • -->
+<!--   <a href="#reverse-shell">Reverse Shell</a> • -->
+<!--   <a href="#malware-techniques">Malware Techniques</a> • -->
+<!--   <a href="#contribution">Contribution</a> • -->
+<!--   <a href="#credits--references">Credits & References</a> • -->
+<!--   <a href="#disclaimer">Disclaimer</a> -->
+<!-- </p> -->
+
+<p height="350px" align="center">
+  <img src="./Black-Hat-Zig.png">
+<br/>
+  <b>Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the dark power of Zig!</b>
 </p>
 
-<p height="300" align="center">
-  <img src="./Black-Hat-Zig.png">
-</p>
+---
+
+## ToC
+
+- [Intro](#intro)
+- [Why Zig?](#why-zig)
+- [Compiling the codes](#compiling-the-codes)
+- [Payload Placement](#payload-placement)
+- [Payload Obfuscation](#payload-obfuscation)
+- [Payload Encryption](#payload-encryption)
+- [Payload Execution](#payload-execution)
+- [Reverse Shell](#reverse-shell)
+- [Malware Techniques](#malware-techniques)
+- [Contribution](#contribution)
+- [Credits & References](#credits--references)
+- [Disclaimer](#disclaimer)
 
 ## Intro
 
 > [!IMPORTANT]
 > This project is continuously updating!
 
-Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the power of Zig.
-
-This project provides many malware techniques implementation using Zig since I'm a huge fan of it. You can use this repo to weaponize Zig.
-
-This project is continuously updating to make sure it contains as more content as it could. It will be perfect if you want to create a PR for this project.
+This project provides many malware techniques implementation using Zig since I'm a huge fan of it. You can use this repo to weaponize Zig. Black-Hat-Zig is continuously updating to make sure it contains as more content as it could. It will be perfect if you want to create a PR for this project.
 
 Okay, let's hack the planet!
 
@@ -59,12 +74,16 @@ zig build
 
 ## Payload Placement
 
+Techniques to place malicious payloads in various sections of an executable file.
+
 - [.data Section](./Payload-Placement/dot_data_section/)
 - [.rdata Section](./Payload-Placement/dot_rdata_section/)
 - [.text Section](./Payload-Placement/dot_text_section/)
 - [.rsrc Section](./Payload-Placement/dot_rsrc_section/)
 
 ## Payload Obfuscation
+
+Obfuscation techniques to disguise payloads and avoid detection through static analysis or pattern matching.
 
 - [IP Address Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/)
   - [IPv4 Obfuscation](./Payload-Obfuscation/IP-Address-Obfuscation/ipv4_obfuscation/)
@@ -79,6 +98,8 @@ zig build
   - [UUID Deobfuscation](./Payload-Obfuscation/UUID-Obfuscation/UUIDDeobfuscation/)
 
 ## Payload Encryption
+
+Various encryption schemes used to hide the real intent of a payload during storage or transmission.
 
 - [XOR Encryption](./Payload-Encryption/XOR/)
   - [XOR With Standard Library](./Payload-Encryption/XOR/std_lib_xor/)
@@ -96,9 +117,13 @@ zig build
 
 ## Reverse Shell
 
+Primitives for establishing reverse shells for C2 access or post-exploitation control.
+
 - [Reverse Shell With Standard Library](./Reverse-Shell/std_reverse_shell/)
 
 ## Malware Techniques
+
+A collection of common offensive tradecraft techniques adapted to Zig.
 
 - [Process Injection](./Malware-Techniques/Process-Injection/)
   - [DLL Injection](./Malware-Techniques/Process-Injection/dll_injection/)
