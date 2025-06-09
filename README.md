@@ -1,10 +1,9 @@
 # Black-Hat-Zig
 
 <p align="center">
-  <img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/cx330blake/blake-hat-zig/total">
   <img alt="GitHub License" src="https://img.shields.io/github/license/CX330Blake/black-hat-zig">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/cx330blake/blake-hat-zig">
-  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/cx330blake/blake-hat-zig">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/cx330blake/black-hat-zig">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/cx330blake/black-hat-zig">
   <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/CX330Blake">
 </p>
 
