@@ -7,21 +7,6 @@
   <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/CX330Blake">
 </p>
 
-<!-- <p align="center"> -->
-<!--   <a href="#intro">Intro</a> • -->
-<!--   <a href="#why-zig-">Why Zig?</a> • -->
-<!--   <a href="#compiling-the-codes">Compiling the codes</a> • -->
-<!--   <a href="#payload-placement">Payload Placement</a> • -->
-<!--   <a href="#payload-obfuscation">Payload Obfuscation</a> • -->
-<!--   <a href="#payload-encryption">Payload Encryption</a> • -->
-<!--   <a href="#payload-execution">Payload Execution</a> • -->
-<!--   <a href="#reverse-shell">Reverse Shell</a> • -->
-<!--   <a href="#malware-techniques">Malware Techniques</a> • -->
-<!--   <a href="#contribution">Contribution</a> • -->
-<!--   <a href="#credits--references">Credits & References</a> • -->
-<!--   <a href="#disclaimer">Disclaimer</a> -->
-<!-- </p> -->
-
 <p height="350px" align="center">
   <img src="./Black-Hat-Zig.png">
 <br/>
@@ -42,7 +27,7 @@
 - [Reverse Shell](#reverse-shell)
 - [Malware Techniques](#malware-techniques)
 - [Maldev Tools](#maldev-tools)
-- [Contribution](#contribution)
+- [Contributors](#contributors)
 - [Credits & References](#credits--references)
 - [Star History](#star-history)
 - [Disclaimer](#disclaimer)
@@ -140,9 +125,13 @@ A collection of common offensive tradecraft techniques adapted to Zig.
 - [ZYPE: Your Payload Encryptor](https://github.com/cx330blake/zype)
   - Generate a code template in Zig containing your encrypted/obfuscated payload and the corresponding decrypting/deobfuscating function.
 
-## Contribution
+## Contributors
 
-This project is currently maintained by [@CX330Blake](https://github.com/CX330Blake). PRs are welcomed. Hope there's more people use Zig for malware developing so the ecosystem will be more mature.
+This project is mainly maintained & managed by [@CX330Blake](https://github.com/CX330Blake). PRs are welcomed. Hope there's more people use Zig for malware developing so the ecosystem will be more mature.
+
+<a href="https://github.com/CX330Blake/black-hat-zig/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=CX330Blake/black-hat-zig" />
+</a>
 
 ## Credits & References
 
@@ -151,7 +140,7 @@ This project is currently maintained by [@CX330Blake](https://github.com/CX330Bl
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=cx330blake/black-hat-zig&type=Date)](https://www.star-history.com/#cx330blake/black-hat-zig&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=CX330blake/black-hat-zig&type=Date)](https://www.star-history.com/#CX330blake/black-hat-zig&Date)
 
 ## Disclaimer
 
