@@ -1,8 +1,19 @@
 const std = @import("std");
 
 pub fn build(b: *std.Build) void {
-        const target = b.standardTargetOptions(.{ .default_target = .{ .cpu_arch = .x86_64, .os_tag = .windows } });
-        const optimize = b.standardOptimizeOption(.{});
+    const target = b.standardTargetOptions(.{ .default_target = .{ .cpu_arch = .x86_64, .os_tag = .windows } });
+    const optimize = b.standardOptimizeOption(.{});
+
+    const payload_dll = b.addSharedLibrary(.{
+        .name = "payload_dll",
+        .root_source_file = b.path("src/root.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Link Windows libraries for the DLL
+    payload_dll.linkSystemLibrary("kernel32");
+    payload_dll.linkSystemLibrary("user32");
 
     const exe = b.addExecutable(.{
         .name = "dll",
@@ -11,6 +22,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     b.installArtifact(exe);
+
+    // Install the DLL
+    b.installArtifact(payload_dll);
 
     const run_cmd = b.addRunArtifact(exe);
     run_cmd.step.dependOn(b.getInstallStep());
