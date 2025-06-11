@@ -9,8 +9,9 @@
 
 <p height="350px" align="center">
   <img src="./Black-Hat-Zig.png">
-<br/>
-  <b>Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the dark power of Zig!</b>
+  <br/>
+  <b>Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the dark power of Zig!</b><br/><br/>
+  <b>Maintained and managed by <a href="https://github.com/cx330blake">@CX330Blake</a></b>
 </p>
 
 ---
@@ -47,6 +48,8 @@ Okay, let's hack the planet!
 - 🔎 It's newer, so it's harder to be detect
 - 💪 Strongly low level control, even lower than C
 - 😱 It's harder to RE because of the modern compiler
+- 🛡️ Minimal runtime dependencies - No massive standard library footprint
+- 🎯 No undefined behavior - Explicit handling of edge cases prevents crashes
 
 ## Compiling the codes
 
@@ -132,6 +135,8 @@ A collection of common offensive tradecraft techniques adapted to Zig.
 ## Contributors
 
 This project is mainly maintained & managed by [@CX330Blake](https://github.com/CX330Blake). PRs are welcomed. Hope there's more people use Zig for malware developing so the ecosystem will be more mature.
+
+Huge thanks for these contributors!
 
 <a href="https://github.com/CX330Blake/black-hat-zig/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CX330Blake/black-hat-zig" />
