@@ -117,6 +117,10 @@ A collection of common offensive tradecraft techniques adapted to Zig.
 - [Payload Staging](./Malware-Techniques/Payload-Staging/)
   - [From Web Server](./Malware-Techniques/Payload-Staging/web_server/)
   - [From Windows Registry](./Malware-Techniques/Payload-Staging/windows_registry/)
+- [Process Enumeration](./Malware-Techniques/Process-Enumeration/)
+  - [Using CreateToolhelp32Snapshot](./Malware-Techniques/Process-Enumeration/create_tool_help_32_snapshot/)
+  - [Using EnumProcesses](./Malware-Techniques/Process-Enumeration/enum_processes/)
+  - [Using NtQuerySystemInformation](./Malware-Techniques/Process-Enumeration/nt_query_system_information/)
 
 ## Maldev Tools
 
