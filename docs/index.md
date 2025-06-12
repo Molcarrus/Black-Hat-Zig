@@ -7,18 +7,8 @@
   <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/CX330Blake">
 </p>
 
-<p align="center">
-  <a href="#intro">Intro</a> •
-  <a href="#why-zig">Why Zig?</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#contributors">Contributors</a> •
-  <a href="#credits--references">Credits & References</a> •
-  <a href="#star-history">Star History</a> •
-  <a href="#disclaimer">Disclaimer</a>
-</p>
-
 <p height="350px" align="center">
-  <img src="./Black-Hat-Zig.png">
+  <img src="../Black-Hat-Zig.png">
   <br/>
   <b>Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the dark power of Zig!</b><br/><br/>
   <b>Maintained and managed by <a href="https://github.com/cx330blake">@CX330Blake</a></b>
@@ -28,7 +18,6 @@
 
 ## Intro
 
-> [!IMPORTANT]
 > This project is continuously updating!
 
 This project provides many malware techniques implementation using Zig since I'm a huge fan of it. You can use this repo to weaponize Zig. Black-Hat-Zig is continuously updating to make sure it contains as more content as it could. It will be perfect if you want to create a PR for this project.
@@ -43,10 +32,6 @@ Okay, let's hack the planet!
 - 😱 It's harder to RE because of the modern compiler
 - 🛡️ Minimal runtime dependencies - No massive standard library footprint
 - 🎯 No undefined behavior - Explicit handling of edge cases prevents crashes
-
-## Usage
-
-- [Quick Start](https://black-hat-zig.cx330.tw)
 
 ## Contributors
 
