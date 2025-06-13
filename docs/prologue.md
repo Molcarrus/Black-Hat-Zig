@@ -3,10 +3,10 @@
 ## Prerequisites
 
 - Windows environment
-  - The code can be compiled on Linux/MacOS, but still need a Windows environment to execute.
+  - The code can be compiled on Linux/MacOS, but still need a Windows environment to execute
 - Zig >= 0.14.0
 - ZYPE installed
-  - ZYPE is a tool we will often used here. To install, please visit [ZYPE](https://github.com/cx330blake/zype).
+  - ZYPE is a tool we will often used here. To install, please visit [ZYPE](https://github.com/cx330blake/zype)
 
 ## Compiling The Codes
 

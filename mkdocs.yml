@@ -1,7 +1,13 @@
 site_name: Black-Hat-Zig
 site_url: https://black-hat-zig.cx330.tw
+repo_url: https://github.com/cx330blake/black-hat-zig
+repo_name: CX330Blake/Black-Hat-Zig
 theme:
     name: material
+    favicon: assets/zig.svg
+    logo: assets/zig.svg
+    icon:
+        repo: fontawesome/brands/github
     features:
         - content.code.copy
         - content.code.annotation
@@ -75,3 +81,7 @@ markdown_extensions:
     - pymdownx.inlinehilite
     - pymdownx.snippets
     - pymdownx.superfences
+    - def_list
+    - pymdownx.tasklist:
+          custom_checkbox: true
+    - mdx_truly_sane_lists
