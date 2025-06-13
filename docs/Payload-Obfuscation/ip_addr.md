@@ -12,7 +12,15 @@ In this chapter, I will show you how to obfuscate your payload as IP address. We
 
 ## IPv4 Obfuscation
 
-[Source code](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/Payload-Obfuscation/IP-Address-Obfuscation/ipv4_obfuscation)
+IPv4 is constructed with 4 numbers from 0 to 255 with the size range of the number is 256 (2^8). So each number can represent 1 byte of the payload. If we represent the payload in hex, for example, we let the payload to be this.
+
+```zig
+const payload = [_]u8{0xDE, 0xAD, 0xBE, 0xEF};
+```
+
+That payload is 4 bytes in total. Then the IPv4 obfuscation result will be **222.173.190.239**. If you don't know how to convert decimal to hexadecimal or vice versa, you should go learn it first to better understand the content.
+
+In Zig, an 8 byte value can use the type `u8`, which stands for **unsigned integer with 8 bits size**. So the implementation is simple, just convert the decimal to hexadecimal representation. Since they're all just integers, we can use the format string to do this.
 
 ```zig title="main.zig"
 const std = @import("std");
