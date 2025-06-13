@@ -31,7 +31,7 @@ For those who visited this project, I'll assume you already know what is "sectio
 
 For more details: [Special Sections - MSDN](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#special-sections).
 
-## Code Explanation
+## Code Walkthrough
 
 In this chapter, I will show you how to store out payload into .data section.
 

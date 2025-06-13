@@ -1,4 +1,7 @@
-# Black-Hat-Zig
+---
+title: Black-Hat-Zig
+description: Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the dark power of Zig!
+---
 
 <p align="center">
   <img alt="GitHub License" src="https://img.shields.io/github/license/CX330Blake/black-hat-zig">

@@ -49,8 +49,8 @@ nav:
           - RC4 Encryption: "Payload-Encryption/rc4.md"
           - AES Encryption: "Payload-Encryption/aes.md"
     - Payload Execution:
-          - DLL: "Payload-Execution/dll.md"
-          - Shellcode: "Payload-Execution/shellcode.md"
+          - Execute Via DLL: "Payload-Execution/dll.md"
+          - Execute Via Shellcode: "Payload-Execution/shellcode.md"
     - Malware Techniques:
           - Payload Staging:
                 - Web Server: "Malware-Techniques/Payload-Staging/web_server.md"
@@ -69,6 +69,7 @@ nav:
 
 plugins:
     - search
+    - social
     - privacy:
           links_attr_map:
               target: _blank
