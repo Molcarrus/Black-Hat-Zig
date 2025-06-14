@@ -33,6 +33,7 @@ theme:
 docs_dir: "src"
 plugins:
     - search
+    - awesome-nav
     - social
     - privacy:
           links_attr_map:

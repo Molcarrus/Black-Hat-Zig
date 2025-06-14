@@ -1,0 +1,10 @@
+nav:
+    - ./index.md
+    - ./prologue.md
+    - ./Payload-Placement
+    - ./Payload-Obfuscation/
+    - ./Payload-Encryption/
+    - ./Payload-Execution/
+    - ./Reverse-Shell/
+    - ./Malware-Techniques/
+    - ./epilogue.md
