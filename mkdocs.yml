@@ -30,44 +30,7 @@ theme:
               icon: material/brightness-4
               name: Switch to light mode
 
-docs_dir: "docs"
-
-nav:
-    - Introduction: index.md
-    - Before We Start: prologue.md
-    - Payload Placement:
-          - .data Section: "Payload-Placement/dot_data.md"
-          - .rdata Section: "Payload-Placement/dot_rdata.md"
-          - .text Section: "Payload-Placement/dot_text.md"
-          - .rsrc Section: "Payload-Placement/dot_rsrc.md"
-    - Payload Obfuscation:
-          - IP Address Obfuscation: "Payload-Obfuscation/ip_addr.md"
-          - MAC Address Obfuscation: "Payload-Obfuscation/mac_addr.md"
-          - UUID Obfuscation: "Payload-Obfuscation/uuid.md"
-    - Payload Encryption:
-          - XOR Encryption: "Payload-Encryption/xor.md"
-          - RC4 Encryption: "Payload-Encryption/rc4.md"
-          - AES Encryption: "Payload-Encryption/aes.md"
-    - Payload Execution:
-          - Execute Via DLL: "Payload-Execution/dll.md"
-          - Execute Via Shellcode: "Payload-Execution/shellcode.md"
-    - Reverse Shell:
-          - Reverse Shell With Standard Library: "Reverse-Shell/std_reverse_shell.md"
-    - Malware Techniques:
-          - Payload Staging:
-                - Web Server: "Malware-Techniques/Payload-Staging/web_server.md"
-                - Windows Registry: "Malware-Techniques/Payload-Staging/registry.md"
-          - Process Injection:
-                - DLL Injection: "Malware-Techniques/Process-Injection/dll_injection.md"
-                - Shellcode Injection: "Malware-Techniques/Process-Injection/shellcode_injection.md"
-          - Process Enumeration:
-                - Using CreateToolhelp32Snapshot: "Malware-Techniques/Process-Enumeration/create_tool_help_32_snapshot.md"
-                - Using EnumProcesses: "Malware-Techniques/Process-Enumeration/enum_processes.md"
-                - Using NtQuerySystemInformation: "Malware-Techniques/Process-Enumeration/nt_query_system_information.md"
-          - Thread Hijacking:
-                - Local Thread Creation: "Malware-Techniques/Thread-Hijacking/local_thread_creation.md"
-    - Epilogue: epilogue.md
-
+docs_dir: "src"
 plugins:
     - search
     - social
