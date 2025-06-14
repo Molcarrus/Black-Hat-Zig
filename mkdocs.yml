@@ -51,6 +51,8 @@ nav:
     - Payload Execution:
           - Execute Via DLL: "Payload-Execution/dll.md"
           - Execute Via Shellcode: "Payload-Execution/shellcode.md"
+    - Reverse Shell:
+          - Reverse Shell With Standard Library: "Reverse-Shell/std_reverse_shell.md"
     - Malware Techniques:
           - Payload Staging:
                 - Web Server: "Malware-Techniques/Payload-Staging/web_server.md"
@@ -62,9 +64,8 @@ nav:
                 - Using CreateToolhelp32Snapshot: "Malware-Techniques/Process-Enumeration/create_tool_help_32_snapshot.md"
                 - Using EnumProcesses: "Malware-Techniques/Process-Enumeration/enum_processes.md"
                 - Using NtQuerySystemInformation: "Malware-Techniques/Process-Enumeration/nt_query_system_information.md"
-          # - Thread Hijacking:
-    - Reverse Shell:
-          - Reverse Shell With Standard Library: "Reverse-Shell/std_reverse_shell.md"
+          - Thread Hijacking:
+                - Local Thread Creation: "Malware-Techniques/Thread-Hijacking/local_thread_creation.md"
     - Epilogue: epilogue.md
 
 plugins:
