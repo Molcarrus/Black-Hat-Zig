@@ -4,21 +4,31 @@ repo_url: https://github.com/cx330blake/black-hat-zig
 repo_name: CX330Blake/Black-Hat-Zig
 theme:
     name: material
-    favicon: assets/zig.svg
+    favicon: assets/favicon.png
     logo: assets/zig.svg
     icon:
         repo: fontawesome/brands/github
     features:
         - content.code.copy
         - content.code.annotation
+        - search.share
         - search.highlight
         - search.suggest
         - content.code.select
+        - navigation.path
         - navigation.footer
+        - navigation.top
+        - navigation.instant
+        - navigation.instant.progress
+        - navigation.tabs
+        - navigation.tracking
+        - navigation.instant
+        - navigation.instant.prefetch
     palette:
         - media: "(prefers-color-scheme: light)"
           scheme: default
           primary: orange
+          accent: deep orange
           toggle:
               icon: material/brightness-7
               name: Switch to dark mode
@@ -26,6 +36,7 @@ theme:
         - media: "(prefers-color-scheme: dark)"
           scheme: slate
           primary: orange
+          accent: deep orange
           toggle:
               icon: material/brightness-4
               name: Switch to light mode
@@ -54,3 +65,12 @@ markdown_extensions:
 
 extra_css:
     - stylesheets/extra.css
+
+extra:
+    consent:
+        title: Cookie consent
+        description: >-
+            We use cookies to recognize your repeated visits and preferences, as well
+            as to measure the effectiveness of our documentation and whether users
+            find what they're searching for. With your consent, you're helping us to
+            make our documentation better.

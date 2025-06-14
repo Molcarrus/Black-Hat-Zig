@@ -1,10 +1,14 @@
 nav:
-    - ./index.md
-    - ./prologue.md
-    - ./Payload-Placement
-    - ./Payload-Obfuscation/
-    - ./Payload-Encryption/
-    - ./Payload-Execution/
-    - ./Reverse-Shell/
-    - ./Malware-Techniques/
-    - ./epilogue.md
+    - Get Started:
+          - ./index.md
+          - ./prologue.md
+    - Payload Management:
+          - ./Payload-Placement
+          - ./Payload-Obfuscation/
+          - ./Payload-Encryption/
+          - ./Payload-Execution/
+    - Malware Techniques:
+          - ./Malware-Techniques/*
+    - Malware Examples:
+          - ./Reverse-Shell/
+    - Epilogue: ./epilogue.md
