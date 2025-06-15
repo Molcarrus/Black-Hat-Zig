@@ -73,3 +73,7 @@ This project is for ethical and educational purpose only. Don't be a cyber crimi
 
 
 <!-- GitAds-Verify: SYUFFUKR39H8T8MYYOIUKQ5AFB1O8AQ9 -->
+
+## GitAds Sponsored
+[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=cx330blake/black-hat-zig@github)](https://gitads.dev/v1/ad-track?source=cx330blake/black-hat-zig@github)
+
