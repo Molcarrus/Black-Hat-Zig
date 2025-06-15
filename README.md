@@ -70,3 +70,6 @@ Huge thanks for these contributors!
 ## Disclaimer
 
 This project is for ethical and educational purpose only. Don't be a cyber criminal.
+
+
+<!-- GitAds-Verify: SYUFFUKR39H8T8MYYOIUKQ5AFB1O8AQ9 -->
