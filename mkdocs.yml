@@ -4,7 +4,7 @@ repo_url: https://github.com/cx330blake/black-hat-zig
 repo_name: CX330Blake/Black-Hat-Zig
 theme:
     name: material
-    favicon: assets/favicon.png
+    favicon: assets/favicon.svg
     logo: assets/zig.svg
     icon:
         repo: fontawesome/brands/github
@@ -74,3 +74,6 @@ extra:
             as to measure the effectiveness of our documentation and whether users
             find what they're searching for. With your consent, you're helping us to
             make our documentation better.
+    analytics:
+        provider: google
+        property: G-CYTPQ2676T
