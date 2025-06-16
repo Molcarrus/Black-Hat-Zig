@@ -7,7 +7,7 @@
 ## Explanation
 
 The `.rdata` section holds read‑only data such as constants and string literals.
-By marking the payload as `const` and using `linksection`, we can store shellcode
+By marking the payload as `const`, which will make it read-only, we can store shellcode
 in this section. The bytes cannot be modified at runtime, but they still reside
 in an executable area if permissions are set accordingly. Because `.rdata` is
 commonly full of static data, placing code here may evade cursory inspection
