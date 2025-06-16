@@ -3,9 +3,16 @@ nav:
           - ./index.md
           - ./prologue.md
     - Payload Management:
-          - ./Payload-Placement
+          - Payload Placement:
+                - ./Payload-Placement/dot_data.md
+                - ./Payload-Placement/dot_rdata.md
+                - ./Payload-Placement/dot_text.md
+                - ./Payload-Placement/dot_rsrc.md
           - ./Payload-Obfuscation/
-          - ./Payload-Encryption/
+          - Payload Encryption:
+                - ./Payload-Encryption/XOR.md
+                - ./Payload-Encryption/RC4.md
+                - ./Payload-Encryption/AES.md
           - ./Payload-Execution/
     - Malware Techniques:
           - ./Malware-Techniques/*

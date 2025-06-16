@@ -1,7 +1,5 @@
 # .rsrc Section
 
-## Explanation
-
 The `.rsrc` section of a PE file contains resources such as icons, images, and
 version information. Malware sometimes hides shellcode within these resources
 and extracts it at runtime, as the section is usually ignored by cursory code

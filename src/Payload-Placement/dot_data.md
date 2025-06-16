@@ -4,8 +4,6 @@
 
 [See the code example](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/src/Payload-Placement/dot_data_section)
 
-## Explanation
-
 The `.data` section contains global variables that are readable and writable.
 Placing shellcode here is the simplest approach—declare a mutable array with the
 payload bytes. At runtime the code can reference this array directly, but it is

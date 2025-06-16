@@ -4,8 +4,6 @@
 
 [See the code example](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/src/Payload-Execution/shellcode)
 
-## Explanation
-
 Executing payloads as shellcode involves storing the machine code directly in a
 buffer, allocating executable memory, and then jumping to that buffer. The code
 here uses the ZYPE tool to generate encrypted shellcode that is decoded at

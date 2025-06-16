@@ -4,8 +4,6 @@
 
 [See the code example](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/src/Payload-Obfuscation/IP-Address-Obfuscation)
 
-## Explanation
-
 IP address obfuscation disguises shellcode bytes as seemingly harmless IP
 strings. Each byte is translated into a portion of an IPv4 or IPv6 address,
 making the payload appear like configuration data or network traffic. When the

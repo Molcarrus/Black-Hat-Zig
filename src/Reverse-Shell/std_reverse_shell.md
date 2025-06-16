@@ -4,8 +4,6 @@
 
 [See the code example](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/src/Reverse-Shell/std_reverse_shell)
 
-## Explanation
-
 This example implements a classic reverse shell using only Zig's standard
 library. It connects to a remote host and spawns a command interpreter whose
 input and output are tunneled through the TCP socket. Once the connection is

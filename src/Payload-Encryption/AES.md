@@ -4,8 +4,6 @@
 
 [See the code example](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/src/Payload-Encryption/AES)
 
-## Explanation
-
 Advanced Encryption Standard (AES) is a widely used symmetric cipher. Malware
 often encrypts embedded payloads with AES so that static scanners cannot easily
 identify the malicious code. This chapter demonstrates multiple ways to perform
