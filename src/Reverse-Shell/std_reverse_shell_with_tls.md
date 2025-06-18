@@ -4,6 +4,9 @@
 
 [See the code example](https://github.com/CX330Blake/Black-Hat-Zig/tree/main/src/Reverse-Shell/std_reverse_shell_with_tls)
 
+This example implements a classic reverse shell **using only Zig's standard library**.  
+Unlike the [previous one](../std_reverse_shell), this version **implements TLS encryption**, so all network traffic is encrypted. In real-world operations, antivirus and EDR solutions often monitor network traffic. If they detect something resembling command-and-control behavior, it may trigger an alert — which is exactly what we want to avoid. With this reverse shell, encrypted traffic helps **bypass basic detections** by obscuring the communication.
+
 ## Usage
 
 As an attacker, on the attacking machine, you should generate the certification and the key before starting a listener.

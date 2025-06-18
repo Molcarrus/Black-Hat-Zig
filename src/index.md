@@ -58,14 +58,3 @@ Huge thanks for these contributors!
 ## Disclaimer
 
 This project is for ethical and educational purpose only. Don't be a cyber criminal.
-
-<!-- GitAds-Verify: SYUFFUKR39H8T8MYYOIUKQ5AFB1O8AQ9 -->
-
-## GitAds Sponsored
-
-<p align="center">
-  This project is <strong>sponsored by <a href="https://docs.gitads.dev/docs/getting-started/publishers">GitAds</a></strong>.<br>
-  You can get your GitHub repository sponsored too — <a href="https://docs.gitads.dev/docs/getting-started/publishers">create your account now</a>.
-</p>
-
-[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=cx330blake/black-hat-zig@github)](https://gitads.dev/v1/ad-track?source=cx330blake/black-hat-zig@github)
