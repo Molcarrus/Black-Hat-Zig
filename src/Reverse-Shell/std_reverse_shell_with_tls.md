@@ -7,6 +7,23 @@
 This example implements a classic reverse shell **using only Zig's standard library**.  
 Unlike the [previous one](../std_reverse_shell), this version **implements TLS encryption**, so all network traffic is encrypted. In real-world operations, antivirus and EDR solutions often monitor network traffic. If they detect something resembling command-and-control behavior, it may trigger an alert — which is exactly what we want to avoid. With this reverse shell, encrypted traffic helps **bypass basic detections** by obscuring the communication.
 
+## Connection Graph
+
+```mermaid
+sequenceDiagram
+    participant A as 🖥️ Attacker's Machine
+    participant N as 🌐 Network
+    participant T as 💻 Target Machine
+
+    Note over A: Send encrypted command
+    A->>N: 🔒 Encrypted command
+    N->>T: 🔒 Encrypted traffic
+    Note over T: Decrypt and run
+    T->>N: 🔒 Encrypted response
+    N->>A: 🔒 Encrypted traffic
+    Note over A: Get execution result
+```
+
 ## Usage
 
 As an attacker, on the attacking machine, you should generate the certification and the key before starting a listener.
