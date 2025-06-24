@@ -1,6 +1,6 @@
 ---
 title: Intro to Black-Hat-Zig
-description: Hello hackers. Hello maldevs. Hello reversers. Nice to see you here to explore the dark power of Zig!
+description: Welcome hackers and malware developers! This is your ultimate Zig playbook for red team operations and malware development. Explore the power of the Zig programming language for offensive security, cybersecurity research, and low-level system manipulation.
 ---
 
 <p align="center">

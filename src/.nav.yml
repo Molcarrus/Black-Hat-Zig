@@ -15,7 +15,11 @@ nav:
                 - ./Payload-Encryption/AES.md
           - ./Payload-Execution/
     - Malware Techniques:
-          - ./Malware-Techniques/*
+          - ./Malware-Techniques/Process-Injection/
+          - ./Malware-Techniques/Payload-Staging/
+          - ./Malware-Techniques/Process-Enumeration/
+          - ./Malware-Techniques/Thread-Hijacking/
+          - ./Malware-Techniques/APC-Injection/
     - Malware Examples:
           - ./Reverse-Shell/
     - Epilogue: ./epilogue.md
