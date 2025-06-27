@@ -4,6 +4,7 @@ mkdocs-material
 
 # Plugins
 mkdocs-awesome-pages-plugin
+mkdocs-awesome-nav
 
 # Markdown Extensions
 pymdown-extensions
