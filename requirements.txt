@@ -4,7 +4,6 @@ mkdocs-material
 
 # Plugins
 mkdocs-awesome-pages-plugin
-mkdocs-privacy
 
 # Markdown Extensions
 pymdown-extensions
