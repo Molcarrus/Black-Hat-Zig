@@ -2,7 +2,7 @@ nav:
     - Get Started:
           - ./index.md
           - ./prologue.md
-    - Payload Management:
+    - Basic Payload Management:
           - Payload Placement:
                 - ./Payload-Placement/dot_data.md
                 - ./Payload-Placement/dot_rdata.md
@@ -14,7 +14,7 @@ nav:
                 - ./Payload-Encryption/RC4.md
                 - ./Payload-Encryption/AES.md
           - ./Payload-Execution/
-    - Malware Techniques:
+    - Advanced Malware Techniques:
           - ./Malware-Techniques/Process-Injection/
           - ./Malware-Techniques/Payload-Staging/
           - ./Malware-Techniques/Process-Enumeration/
