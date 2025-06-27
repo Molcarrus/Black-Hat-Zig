@@ -3,14 +3,10 @@ mkdocs
 mkdocs-material
 
 # Plugins
-mkdocs-awesome-pages-plugin       
-mkdocs-social                    
-mkdocs-privacy                  
+mkdocs-awesome-pages-plugin
+mkdocs-privacy
 
 # Markdown Extensions
-pymdown-extensions             
-mdx_truly_sane_lists          
-
-# Optional but recommended
-markdown                     
+pymdown-extensions
+mdx_truly_sane_lists
 
