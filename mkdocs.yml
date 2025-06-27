@@ -46,9 +46,9 @@ plugins:
     - search
     - awesome-nav
     - social
-    - privacy:
-          links_attr_map:
-              target: _blank
+    # - privacy:
+    #       links_attr_map:
+    #           target: _blank
 
 markdown_extensions:
     - pymdownx.highlight:

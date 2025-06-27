@@ -1,6 +1,7 @@
 # Core
 mkdocs
 mkdocs-material
+mkdocs-material[imaging]
 
 # Plugins
 mkdocs-awesome-pages-plugin
