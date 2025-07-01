@@ -11,7 +11,7 @@ also easily spotted during static analysis. Security tools often check the `.dat
 section for suspicious byte sequences. This chapter illustrates the basic method
 of embedding shellcode in `.data` and highlights why it may be detected quickly.
 
-## What Is Payload?
+## What Is Payload
 
 To execute the malicious code, we must load the malicious stuff into the binary somehow. And this malicious stuff, is the so called "payload" or "shellcode".
 
