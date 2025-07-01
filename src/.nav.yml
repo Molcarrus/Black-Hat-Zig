@@ -4,21 +4,21 @@ nav:
           - ./prologue.md
     - Basic Payload Management:
           - Payload Placement:
-                - ./Payload-Placement/dot_data.md
-                - ./Payload-Placement/dot_rdata.md
-                - ./Payload-Placement/dot_text.md
-                - ./Payload-Placement/dot_rsrc.md
-          - ./Payload-Obfuscation/
+                - ./Basic-Payload-Management/Payload-Placement/dot_data.md
+                - ./Basic-Payload-Management/Payload-Placement/dot_rdata.md
+                - ./Basic-Payload-Management/Payload-Placement/dot_text.md
+                - ./Basic-Payload-Management/Payload-Placement/dot_rsrc.md
+          - ./Basic-Payload-Management/Payload-Obfuscation/
           - Payload Encryption:
-                - ./Payload-Encryption/XOR.md
-                - ./Payload-Encryption/RC4.md
-                - ./Payload-Encryption/AES.md
-          - ./Payload-Execution/
+                - ./Basic-Payload-Management/Payload-Encryption/XOR.md
+                - ./Basic-Payload-Management/Payload-Encryption/RC4.md
+                - ./Basic-Payload-Management/Payload-Encryption/AES.md
+          - ./Basic-Payload-Management/Payload-Execution/
     - Advanced Malware Techniques:
-          - ./Malware-Techniques/Process-Injection/
-          - ./Malware-Techniques/Payload-Staging/
-          - ./Malware-Techniques/Process-Enumeration/
-          - ./Malware-Techniques/Callback-Code-Execution/callback_code_execution.md
+          - ./Advanced-Malware-Techniques/Process-Injection/
+          - ./Advanced-Malware-Techniques/Payload-Staging/
+          - ./Advanced-Malware-Techniques/Process-Enumeration/
+          - ./Advanced-Malware-Techniques/Callback-Code-Execution/callback_code_execution.md
     - Malware Examples:
-          - ./Reverse-Shell/
+          - ./Malware-Examples/Reverse-Shell/
     - Epilogue: ./epilogue.md
