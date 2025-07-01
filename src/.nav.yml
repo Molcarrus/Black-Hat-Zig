@@ -18,8 +18,6 @@ nav:
           - ./Malware-Techniques/Process-Injection/
           - ./Malware-Techniques/Payload-Staging/
           - ./Malware-Techniques/Process-Enumeration/
-          - ./Malware-Techniques/Thread-Hijacking/
-          - ./Malware-Techniques/APC-Injection/
           - ./Malware-Techniques/Callback-Code-Execution/callback_code_execution.md
     - Malware Examples:
           - ./Reverse-Shell/

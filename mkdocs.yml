@@ -30,7 +30,7 @@ theme:
           primary: orange
           accent: deep orange
           toggle:
-              icon: material/brightness-7
+              icon: material/brightness-4
               name: Switch to dark mode
 
         - media: "(prefers-color-scheme: dark)"
@@ -38,7 +38,7 @@ theme:
           primary: orange
           accent: deep orange
           toggle:
-              icon: material/brightness-4
+              icon: material/brightness-7
               name: Switch to light mode
 
 docs_dir: "src"
