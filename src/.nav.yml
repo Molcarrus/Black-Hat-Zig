@@ -3,6 +3,7 @@ nav:
           - ./index.md
           - ./prologue.md
     - Basic Payload Management:
+          - Intro: ./Basic-Payload-Management/intro.md
           - Payload Placement:
                 - ./Basic-Payload-Management/Payload-Placement/dot_data.md
                 - ./Basic-Payload-Management/Payload-Placement/dot_rdata.md
@@ -15,10 +16,12 @@ nav:
                 - ./Basic-Payload-Management/Payload-Encryption/AES.md
           - ./Basic-Payload-Management/Payload-Execution/
     - Advanced Malware Techniques:
+          - Intro: ./Advanced-Malware-Techniques/intro.md
           - ./Advanced-Malware-Techniques/Process-Injection/
           - ./Advanced-Malware-Techniques/Payload-Staging/
           - ./Advanced-Malware-Techniques/Process-Enumeration/
           - ./Advanced-Malware-Techniques/Callback-Code-Execution/callback_code_execution.md
     - Malware Examples:
+          - Intro: ./Malware-Examples/intro.md
           - ./Malware-Examples/Reverse-Shell/
     - Epilogue: ./epilogue.md
