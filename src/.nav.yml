@@ -20,7 +20,7 @@ nav:
           - ./Malware-Techniques/Process-Enumeration/
           - ./Malware-Techniques/Thread-Hijacking/
           - ./Malware-Techniques/APC-Injection/
-          - ./Malware-Techniques/Callback-Code-Execution/
+          - ./Malware-Techniques/Callback-Code-Execution/callback_code_execution.md
     - Malware Examples:
           - ./Reverse-Shell/
     - Epilogue: ./epilogue.md
