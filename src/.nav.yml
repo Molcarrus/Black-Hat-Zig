@@ -20,7 +20,6 @@ nav:
           - ./Advanced-Malware-Techniques/Process-Injection/
           - ./Advanced-Malware-Techniques/Payload-Staging/
           - ./Advanced-Malware-Techniques/Process-Enumeration/
-          - ./Advanced-Malware-Techniques/Callback-Code-Execution/callback_code_execution.md
     - Malware Examples:
           - Intro: ./Malware-Examples/intro.md
           - ./Malware-Examples/Reverse-Shell/
