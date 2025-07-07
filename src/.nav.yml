@@ -17,9 +17,9 @@ nav:
           - ./Basic-Payload-Management/Payload-Execution/
     - Advanced Malware Techniques:
           - Intro: ./Advanced-Malware-Techniques/intro.md
-          - ./Advanced-Malware-Techniques/Process-Injection/
-          - ./Advanced-Malware-Techniques/Payload-Staging/
           - ./Advanced-Malware-Techniques/Process-Enumeration/
+          - ./Advanced-Malware-Techniques/Payload-Staging/
+          - ./Advanced-Malware-Techniques/Process-Injection/
     - Malware Examples:
           - Intro: ./Malware-Examples/intro.md
           - ./Malware-Examples/Reverse-Shell/
