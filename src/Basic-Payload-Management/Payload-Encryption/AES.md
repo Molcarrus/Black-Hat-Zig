@@ -15,132 +15,153 @@ execution, keeping the malicious bytes hidden on disk and complicating analysis.
 
 [bcrypt.h header - MSDN](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/)
 
-- Defining the AES struct: 
+### Defining AES struct
+
+```zig title="main.zig"
+const std = @import("std");
+const win = std.os.windows;
+const kernel32 = win.kernel32;
+
+const KEY_SIZE = 32;
+const IV_SIZE = 16;
+
+const DWORD = u32;
+const BOOL = i32;
+const PBYTE = [*]u8;
+const PVOID = ?*anyopaque;
+const ULONG = u32;
+const NTSTATUS = i32;
+
+const BCRYPT_BLOCK_PADDING = 0x00000001;
+const STATUS_SUCCESS: NTSTATUS = 0;
+
+const BCRYPT_AES_ALGORITHM = std.unicode.utf8ToUtf16LeStringLiteral("AES");
+const BCRYPT_CHAINING_MODE = std.unicode.utf8ToUtf16LeStringLiteral("ChainingMode");
+const BCRYPT_CHAIN_MODE_CBC = std.unicode.utf8ToUtf16LeStringLiteral("ChainingModeCBC");
+
+const AES = extern struct {
+    pPlainText: ?PBYTE,
+    dwPlainSize: DWORD,
+    pCipherText: ?PBYTE,
+    dwCipherSize: DWORD,
+    pKey: ?PBYTE,
+    pIv: ?PBYTE,
+};
+```
+
+### External functions In `bcrypt.dll`
+
+1. `BCryptOpenAlgorithmProvider`:
+   Retrieves a handle to a CNG(Windows Cryptography API: Next Generation) algorithm provider, this is the first step in using any cryptographic algorithm.
+
     ```zig title="main.zig"
-    const std = @import("std");
-    const win = std.os.windows;
-    const kernel32 = win.kernel32;
-
-    const KEY_SIZE = 32;
-    const IV_SIZE = 16;
-
-    const DWORD = u32;
-    const BOOL = i32;
-    const PBYTE = [*]u8;
-    const PVOID = ?*anyopaque;
-    const ULONG = u32;
-    const NTSTATUS = i32;
-
-    const BCRYPT_BLOCK_PADDING = 0x00000001;
-    const STATUS_SUCCESS: NTSTATUS = 0;
-
-    const BCRYPT_AES_ALGORITHM = std.unicode.utf8ToUtf16LeStringLiteral("AES");
-    const BCRYPT_CHAINING_MODE = std.unicode.utf8ToUtf16LeStringLiteral("ChainingMode");
-    const BCRYPT_CHAIN_MODE_CBC = std.unicode.utf8ToUtf16LeStringLiteral("ChainingModeCBC");
-
-    const AES = extern struct {
-        pPlainText: ?PBYTE,
-        dwPlainSize: DWORD,
-        pCipherText: ?PBYTE,
-        dwCipherSize: DWORD,
-        pKey: ?PBYTE,
-        pIv: ?PBYTE,
-    };
+    extern "bcrypt" fn BCryptOpenAlgorithmProvider(
+        phAlgorithm: *?*anyopaque,
+        pszAlgId: [*:0]const u16,
+        pszImplementation: ?[*:0]const u16,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
     ```
 
-- There are external functions defined in `bcrypt.dll`:
-    1. `BCryptOpenAlgorithmProvider`:
-        Retrieves a handle to a CNG(Windows Cryptography API: Next Generation) algorithm provider, this is the first step in using any cryptographic algorithm.
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptOpenAlgorithmProvider(
-            phAlgorithm: *?*anyopaque,
-            pszAlgId: [*:0]const u16,
-            pszImplementation: ?[*:0]const u16,
-            dwFlags: ULONG,
-        ) callconv(.C) NTSTATUS;
-        ```
-    2. `BCryptCloseAlgorithmProvider`:
-        Closes and algorithm provider handle opened by `BCryptOpenAlgorithmProvider`
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptCloseAlgorithmProvider(
-            hAlgorithm: ?*anyopaque,
-            dwFlags: ULONG,
-        ) callconv(.C) NTSTATUS;
-        ```
-    3. `BCryptGetProperty`:
-        Retrieves the value of a property for a CNG object 
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptGetProperty(
-            hObject: ?*anyopaque,
-            pszProperty: [*:0]const u16,
-            pbOutput: PBYTE,
-            cbOutput: ULONG,
-            pcbResult: *ULONG,
-            dwFlags: ULONG,
-        ) callconv(.C) NTSTATUS;
-        ```
-    4. `BCryptSetProperty`:
-        Sets the value of a property for a CNG object
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptSetProperty(
-            hObject: ?*anyopaque,
-            pszProperty: [*:0]const u16,
-            pbInput: PBYTE,
-            cbInput: ULONG,
-            dwFlags: ULONG,
-        ) callconv(.C) NTSTATUS;
-        ```
-    5. `BCryptGenerateSymmetricKey`:
-        Creates a symmetric key object from a supplied key
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptGenerateSymmetricKey(
-            hAlgorithm: ?*anyopaque,
-            phKey: *?*anyopaque,
-            pbKeyObject: PBYTE,
-            cbKeyObject: ULONG,
-            pbSecret: PBYTE,
-            cbSecret: ULONG,
-            dwFlags: ULONG,
-        ) callconv(.C) NTSTATUS;
-        ```
-    6. `BCryptDestroyKey`:
-        Destroys a symmetric key handle
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptDestroyKey(hKey: ?*anyopaque) callconv(.C) NTSTATUS;
-        ```
-    7. `BCryptEncrypt`:
-        Encrypts a block of data
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptEncrypt(
-            hKey: ?*anyopaque,
-            pbInput: [*]u8,
-            cbInput: ULONG,
-            pPaddingInfo: ?*anyopaque,
-            pbIV: [*]u8,
-            cbIV: ULONG,
-            pbOutput: ?[*]u8,
-            cbOutput: ULONG,
-            pcbResult: *ULONG,
-            dwFlags: ULONG,
-        ) callconv(.C) NTSTATUS;
-        ```
-    8. `BCryptDecrypt`:
-        Decrypts a block of data
-        ```zig title="main.zig"
-        extern "bcrypt" fn BCryptDecrypt(
-            hKey: ?*anyopaque,
-            pbInput: [*]u8,
-            cbInput: ULONG,
-            pPaddingInfo: ?*anyopaque,
-            pbIV: [*]u8,
-            cbIV: ULONG,
-            pbOutput: ?[*]u8,
-            cbOutput: ULONG,
-            pcbResult: *ULONG,
-            dwFlags: ULONG,
-        ) callconv(.C) NTSTATUS;
-        ```
+2. `BCryptCloseAlgorithmProvider`:
+   Closes and algorithm provider handle opened by `BCryptOpenAlgorithmProvider`
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptCloseAlgorithmProvider(
+        hAlgorithm: ?*anyopaque,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+3. `BCryptGetProperty`:
+   Retrieves the value of a property for a CNG object
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptGetProperty(
+        hObject: ?*anyopaque,
+        pszProperty: [*:0]const u16,
+        pbOutput: PBYTE,
+        cbOutput: ULONG,
+        pcbResult: *ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+4. `BCryptSetProperty`:
+   Sets the value of a property for a CNG object
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptSetProperty(
+        hObject: ?*anyopaque,
+        pszProperty: [*:0]const u16,
+        pbInput: PBYTE,
+        cbInput: ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+5. `BCryptGenerateSymmetricKey`:
+   Creates a symmetric key object from a supplied key
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptGenerateSymmetricKey(
+        hAlgorithm: ?*anyopaque,
+        phKey: *?*anyopaque,
+        pbKeyObject: PBYTE,
+        cbKeyObject: ULONG,
+        pbSecret: PBYTE,
+        cbSecret: ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+6. `BCryptDestroyKey`:
+   Destroys a symmetric key handle
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptDestroyKey(hKey: ?*anyopaque) callconv(.C) NTSTATUS;
+    ```
+
+7. `BCryptEncrypt`:
+   Encrypts a block of data
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptEncrypt(
+        hKey: ?*anyopaque,
+        pbInput: [*]u8,
+        cbInput: ULONG,
+        pPaddingInfo: ?*anyopaque,
+        pbIV: [*]u8,
+        cbIV: ULONG,
+        pbOutput: ?[*]u8,
+        cbOutput: ULONG,
+        pcbResult: *ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+8. `BCryptDecrypt`:
+   Decrypts a block of data
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptDecrypt(
+        hKey: ?*anyopaque,
+        pbInput: [*]u8,
+        cbInput: ULONG,
+        pPaddingInfo: ?*anyopaque,
+        pbIV: [*]u8,
+        cbIV: ULONG,
+        pbOutput: ?[*]u8,
+        cbOutput: ULONG,
+        pcbResult: *ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+### Padding
+
 Checking `NTSTATUS` and removing PKCS#7 padding from a decrypted data buffer
+
 ```zig title="main.zig"
 fn ntSuccess(status: NTSTATUS) bool {
     return status >= 0;
@@ -169,7 +190,10 @@ fn removePkcs7Padding(data: []u8) ?[]u8 {
 }
 ```
 
+### Encryption
+
 Encrypting data using AES in CBC mode with PKCS#7 padding
+
 ```zig title="main.zig"
 // Encryption
 fn installAesEncryption(aes: *AES) bool {
@@ -304,7 +328,11 @@ fn installAesEncryption(aes: *AES) bool {
     return bSTATE;
 }
 ```
+
+### Decryption
+
 Decrypting data using AES in CBC mode, and then removing the PKCS#7 padding
+
 ```zig title="main.zig"
 // Decryption
 fn installAesDecryption(aes: *AES) bool {
@@ -447,7 +475,9 @@ fn installAesDecryption(aes: *AES) bool {
     return bSTATE;
 }
 ```
-Wrappers for encryption and decryption
+
+### Customized Wrappers
+
 ```zig title="main.zig"
 // Wrapper for encryption
 fn simpleEncryption(
@@ -503,7 +533,9 @@ fn simpleDecryption(
     return true;
 }
 ```
-Using the decryption and encryption functions:
+
+### Demo
+
 ```zig title="main.zig"
 pub fn main() !void {
     // --- DECRYPTION PART EXAMPLE ---
@@ -549,7 +581,8 @@ pub fn main() !void {
 
 ## Using Standard Library
 
-Adding and removing the PKCS#7 padding
+### Padding
+
 ```zig title="main.zig"
 // Add PKCS#7 padding
 fn addPkcs7Padding(allocator: std.mem.Allocator, data: []const u8) ![]u8 {
@@ -591,7 +624,8 @@ fn removePkcs7Padding(allocator: std.mem.Allocator, data: []const u8) ![]u8 {
 }
 ```
 
-Encryption fucntion 
+### Encryption
+
 ```zig title="main.zig"
 // AES-256-CBC Encryption
 fn aesEncrypt(allocator: std.mem.Allocator, plaintext: []const u8, key: []const u8, iv: []const u8) ![]u8 {
@@ -637,7 +671,9 @@ fn aesEncrypt(allocator: std.mem.Allocator, plaintext: []const u8, key: []const 
     return ciphertext;
 }
 ```
-AES-256-CBC Decryption:
+
+### AES-256-CBC Decryption:
+
 ```zig title="main.zig"
 // AES-256-CBC Decryption
 fn aesDecrypt(allocator: std.mem.Allocator, ciphertext: []const u8, key: []const u8, iv: []const u8) ![]u8 {
@@ -682,7 +718,8 @@ fn aesDecrypt(allocator: std.mem.Allocator, ciphertext: []const u8, key: []const
 }
 ```
 
-Wrappers for encryption and decryption:
+### Customized Wrappers
+
 ```zig title="main.zig"
 // Simple encryption wrapper
 fn simpleEncryption(
@@ -705,7 +742,8 @@ fn simpleDecryption(
 }
 ```
 
-Example usage:
+### Demo
+
 ```zig title="main.zig"
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -781,7 +819,8 @@ exe.addIncludePath(b.path("src"));
 exe.linkLibC();
 ```
 
-Padding buffer fucntion:
+### Padding
+
 ```zig title="main.zig"
 // Padding buffer function
 fn padBuffer(
@@ -815,7 +854,9 @@ fn padBuffer(
     return TRUE;
 }
 ```
-Encryption example:
+
+### Encryption
+
 ```zig title="main.zig"
 const c = @cImport({
     @cInclude("./aes.h")
@@ -874,7 +915,8 @@ fn aesEncrypt() void {
 }
 ```
 
-Decrytpion Example:
+### Decryption
+
 ```zig title="main.zig"
 // Decryption example (equivalent to second C program)
 fn aesDecrypt() void {
