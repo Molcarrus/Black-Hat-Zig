@@ -15,6 +15,8 @@ execution, keeping the malicious bytes hidden on disk and complicating analysis.
 
 [bcrypt.h header - MSDN](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/)
 
+### Defining AES struct
+
 ```zig title="main.zig"
 const std = @import("std");
 const win = std.os.windows;
@@ -45,97 +47,122 @@ const AES = extern struct {
     pKey: ?PBYTE,
     pIv: ?PBYTE,
 };
+```
 
-extern "bcrypt" fn BCryptOpenAlgorithmProvider(
-    phAlgorithm: *?*anyopaque,
-    pszAlgId: [*:0]const u16,
-    pszImplementation: ?[*:0]const u16,
-    dwFlags: ULONG,
-) callconv(.C) NTSTATUS;
+### External functions In `bcrypt.dll`
 
-extern "bcrypt" fn BCryptCloseAlgorithmProvider(
-    hAlgorithm: ?*anyopaque,
-    dwFlags: ULONG,
-) callconv(.C) NTSTATUS;
+1. `BCryptOpenAlgorithmProvider`:
+   Retrieves a handle to a CNG(Windows Cryptography API: Next Generation) algorithm provider, this is the first step in using any cryptographic algorithm.
 
-extern "bcrypt" fn BCryptGetProperty(
-    hObject: ?*anyopaque,
-    pszProperty: [*:0]const u16,
-    pbOutput: PBYTE,
-    cbOutput: ULONG,
-    pcbResult: *ULONG,
-    dwFlags: ULONG,
-) callconv(.C) NTSTATUS;
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptOpenAlgorithmProvider(
+        phAlgorithm: *?*anyopaque,
+        pszAlgId: [*:0]const u16,
+        pszImplementation: ?[*:0]const u16,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
 
-extern "bcrypt" fn BCryptSetProperty(
-    hObject: ?*anyopaque,
-    pszProperty: [*:0]const u16,
-    pbInput: PBYTE,
-    cbInput: ULONG,
-    dwFlags: ULONG,
-) callconv(.C) NTSTATUS;
+2. `BCryptCloseAlgorithmProvider`:
+   Closes and algorithm provider handle opened by `BCryptOpenAlgorithmProvider`
 
-extern "bcrypt" fn BCryptGenerateSymmetricKey(
-    hAlgorithm: ?*anyopaque,
-    phKey: *?*anyopaque,
-    pbKeyObject: PBYTE,
-    cbKeyObject: ULONG,
-    pbSecret: PBYTE,
-    cbSecret: ULONG,
-    dwFlags: ULONG,
-) callconv(.C) NTSTATUS;
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptCloseAlgorithmProvider(
+        hAlgorithm: ?*anyopaque,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
 
-extern "bcrypt" fn BCryptDestroyKey(hKey: ?*anyopaque) callconv(.C) NTSTATUS;
+3. `BCryptGetProperty`:
+   Retrieves the value of a property for a CNG object
 
-extern "bcrypt" fn BCryptEncrypt(
-    hKey: ?*anyopaque,
-    pbInput: [*]u8,
-    cbInput: ULONG,
-    pPaddingInfo: ?*anyopaque,
-    pbIV: [*]u8,
-    cbIV: ULONG,
-    pbOutput: ?[*]u8,
-    cbOutput: ULONG,
-    pcbResult: *ULONG,
-    dwFlags: ULONG,
-) callconv(.C) NTSTATUS;
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptGetProperty(
+        hObject: ?*anyopaque,
+        pszProperty: [*:0]const u16,
+        pbOutput: PBYTE,
+        cbOutput: ULONG,
+        pcbResult: *ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
 
-extern "bcrypt" fn BCryptDecrypt(
-    hKey: ?*anyopaque,
-    pbInput: [*]u8,
-    cbInput: ULONG,
-    pPaddingInfo: ?*anyopaque,
-    pbIV: [*]u8,
-    cbIV: ULONG,
-    pbOutput: ?[*]u8,
-    cbOutput: ULONG,
-    pcbResult: *ULONG,
-    dwFlags: ULONG,
-) callconv(.C) NTSTATUS;
+4. `BCryptSetProperty`:
+   Sets the value of a property for a CNG object
 
-// Generate random bytes
-fn generateRandomBytes(buf: []u8) void {
-    var prng = std.Random.DefaultPrng.init(@as(u64, @bitCast(std.time.milliTimestamp())));
-    const rand = prng.random();
-    for (buf) |*b| b.* = rand.int(u8);
-}
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptSetProperty(
+        hObject: ?*anyopaque,
+        pszProperty: [*:0]const u16,
+        pbInput: PBYTE,
+        cbInput: ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
 
-// Print a buffer as a C hex array
-fn printHexData(name: []const u8, data: []const u8) void {
-    std.debug.print("const {s} = [_]u8{{", .{name});
-    var i: usize = 0;
-    for (data) |b| {
-        if (i % 16 == 0) std.debug.print("\n\t", .{});
-        if (i < data.len - 1) {
-            std.debug.print("0x{X:0>2}, ", .{b});
-        } else {
-            std.debug.print("0x{X:0>2} ", .{b});
-        }
-        i += 1;
-    }
-    std.debug.print("\n}};\n\n\n", .{});
-}
+5. `BCryptGenerateSymmetricKey`:
+   Creates a symmetric key object from a supplied key
 
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptGenerateSymmetricKey(
+        hAlgorithm: ?*anyopaque,
+        phKey: *?*anyopaque,
+        pbKeyObject: PBYTE,
+        cbKeyObject: ULONG,
+        pbSecret: PBYTE,
+        cbSecret: ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+6. `BCryptDestroyKey`:
+   Destroys a symmetric key handle
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptDestroyKey(hKey: ?*anyopaque) callconv(.C) NTSTATUS;
+    ```
+
+7. `BCryptEncrypt`:
+   Encrypts a block of data
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptEncrypt(
+        hKey: ?*anyopaque,
+        pbInput: [*]u8,
+        cbInput: ULONG,
+        pPaddingInfo: ?*anyopaque,
+        pbIV: [*]u8,
+        cbIV: ULONG,
+        pbOutput: ?[*]u8,
+        cbOutput: ULONG,
+        pcbResult: *ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+8. `BCryptDecrypt`:
+   Decrypts a block of data
+
+    ```zig title="main.zig"
+    extern "bcrypt" fn BCryptDecrypt(
+        hKey: ?*anyopaque,
+        pbInput: [*]u8,
+        cbInput: ULONG,
+        pPaddingInfo: ?*anyopaque,
+        pbIV: [*]u8,
+        cbIV: ULONG,
+        pbOutput: ?[*]u8,
+        cbOutput: ULONG,
+        pcbResult: *ULONG,
+        dwFlags: ULONG,
+    ) callconv(.C) NTSTATUS;
+    ```
+
+### Padding
+
+Checking `NTSTATUS` and removing PKCS#7 padding from a decrypted data buffer
+
+```zig title="main.zig"
 fn ntSuccess(status: NTSTATUS) bool {
     return status >= 0;
 }
@@ -161,7 +188,13 @@ fn removePkcs7Padding(data: []u8) ?[]u8 {
 
     return data[0..start_index];
 }
+```
 
+### Encryption
+
+Encrypting data using AES in CBC mode with PKCS#7 padding
+
+```zig title="main.zig"
 // Encryption
 fn installAesEncryption(aes: *AES) bool {
     var bSTATE: bool = true;
@@ -294,7 +327,13 @@ fn installAesEncryption(aes: *AES) bool {
     }
     return bSTATE;
 }
+```
 
+### Decryption
+
+Decrypting data using AES in CBC mode, and then removing the PKCS#7 padding
+
+```zig title="main.zig"
 // Decryption
 fn installAesDecryption(aes: *AES) bool {
     var bSTATE: bool = true;
@@ -435,12 +474,11 @@ fn installAesDecryption(aes: *AES) bool {
     }
     return bSTATE;
 }
+```
 
-// Helper function to check if a many-item pointer is null-like
-fn isNullPtr(ptr: anytype) bool {
-    return @intFromPtr(ptr) == 0;
-}
+### Customized Wrappers
 
+```zig title="main.zig"
 // Wrapper for encryption
 fn simpleEncryption(
     pPlainTextData: [*]u8,
@@ -494,7 +532,11 @@ fn simpleDecryption(
     sPlainTextSize.* = aes.dwPlainSize;
     return true;
 }
+```
 
+### Demo
+
+```zig title="main.zig"
 pub fn main() !void {
     // --- DECRYPTION PART EXAMPLE ---
     std.debug.print("--- DECRYPTION PART EXAMPLE ---\n\n", .{});
@@ -539,39 +581,9 @@ pub fn main() !void {
 
 ## Using Standard Library
 
+### Padding
+
 ```zig title="main.zig"
-const std = @import("std");
-const crypto = std.crypto;
-const Aes256 = crypto.core.aes.Aes256;
-const print = std.debug.print;
-
-const KEY_SIZE = 32;
-const IV_SIZE = 16;
-const BLOCK_SIZE = 16;
-
-// Generate random bytes
-fn generateRandomBytes(buf: []u8) !void {
-    var prng = std.Random.DefaultPrng.init(@as(u64, @bitCast(std.time.milliTimestamp())));
-    const rand = prng.random();
-    for (buf) |*b| b.* = rand.int(u8);
-}
-
-// Print a buffer as a hex array
-fn printHexData(name: []const u8, data: []const u8) void {
-    print("const {s} = [_]u8{{", .{name});
-    var i: usize = 0;
-    for (data) |b| {
-        if (i % 16 == 0) print("\n\t", .{});
-        if (i < data.len - 1) {
-            print("0x{X:0>2}, ", .{b});
-        } else {
-            print("0x{X:0>2} ", .{b});
-        }
-        i += 1;
-    }
-    print("\n}};\n\n", .{});
-}
-
 // Add PKCS#7 padding
 fn addPkcs7Padding(allocator: std.mem.Allocator, data: []const u8) ![]u8 {
     const padding_needed = BLOCK_SIZE - (data.len % BLOCK_SIZE);
@@ -610,7 +622,11 @@ fn removePkcs7Padding(allocator: std.mem.Allocator, data: []const u8) ![]u8 {
     @memcpy(unpadded, data[0..start_index]);
     return unpadded;
 }
+```
 
+### Encryption
+
+```zig title="main.zig"
 // AES-256-CBC Encryption
 fn aesEncrypt(allocator: std.mem.Allocator, plaintext: []const u8, key: []const u8, iv: []const u8) ![]u8 {
     if (key.len != KEY_SIZE) return error.InvalidKeySize;
@@ -654,7 +670,11 @@ fn aesEncrypt(allocator: std.mem.Allocator, plaintext: []const u8, key: []const 
 
     return ciphertext;
 }
+```
 
+### AES-256-CBC Decryption:
+
+```zig title="main.zig"
 // AES-256-CBC Decryption
 fn aesDecrypt(allocator: std.mem.Allocator, ciphertext: []const u8, key: []const u8, iv: []const u8) ![]u8 {
     if (key.len != KEY_SIZE) return error.InvalidKeySize;
@@ -696,7 +716,11 @@ fn aesDecrypt(allocator: std.mem.Allocator, ciphertext: []const u8, key: []const
     allocator.free(plaintext); // Free the padded version
     return unpadded;
 }
+```
 
+### Customized Wrappers
+
+```zig title="main.zig"
 // Simple encryption wrapper
 fn simpleEncryption(
     allocator: std.mem.Allocator,
@@ -716,7 +740,11 @@ fn simpleDecryption(
 ) ![]u8 {
     return aesDecrypt(allocator, ciphertext_data, key, iv);
 }
+```
 
+### Demo
+
+```zig title="main.zig"
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
@@ -791,71 +819,9 @@ exe.addIncludePath(b.path("src"));
 exe.linkLibC();
 ```
 
+### Padding
+
 ```zig title="main.zig"
-const std = @import("std");
-const win = std.os.windows;
-const kernel32 = win.kernel32;
-const time = std.time;
-const print = std.debug.print;
-
-const c = @cImport({
-    @cInclude("./aes.h");
-});
-
-const BOOL = i32;
-const PBYTE = [*]u8;
-const SIZE_T = usize;
-const BYTE = u8;
-
-const TRUE = 1;
-const FALSE = 0;
-const KEYSIZE = 32;
-const IVSIZE = 16;
-
-// Zig-based random number generator (replacing srand/rand)
-var rng_state: std.Random.DefaultPrng = undefined;
-var rng_initialized: bool = false;
-
-fn initRng() void {
-    if (!rng_initialized) {
-        rng_state = std.Random.DefaultPrng.init(@as(u64, @bitCast(time.milliTimestamp())));
-        rng_initialized = true;
-    }
-}
-
-fn seedRng(seed: u64) void {
-    rng_state = std.Random.DefaultPrng.init(seed);
-    rng_initialized = true;
-}
-
-fn randByte() u8 {
-    if (!rng_initialized) initRng();
-    return rng_state.random().int(u8);
-}
-
-// Generate random bytes using Zig's RNG
-fn generateRandomBytes(buffer: [*]u8, size: usize) void {
-    var i: usize = 0;
-    while (i < size) : (i += 1) {
-        buffer[i] = randByte();
-    }
-}
-
-// Print hex data
-fn printHexData(name: []const u8, data: [*]const u8, size: usize) void {
-    print("const {s} = [_]u8{{\n\t", .{name});
-    var i: usize = 0;
-    while (i < size) : (i += 1) {
-        if (i % 16 == 0 and i != 0) print("\n\t", .{});
-        if (i < size - 1) {
-            print("0x{X:0>2}, ", .{data[i]});
-        } else {
-            print("0x{X:0>2} ", .{data[i]});
-        }
-    }
-    print("\n}};\n\n", .{});
-}
-
 // Padding buffer function
 fn padBuffer(
     input_buffer: [*]const u8,
@@ -887,6 +853,14 @@ fn padBuffer(
 
     return TRUE;
 }
+```
+
+### Encryption
+
+```zig title="main.zig"
+const c = @cImport({
+    @cInclude("./aes.h")
+});
 
 // Encryption example (equivalent to first C program)
 fn aesEncrypt() void {
@@ -939,7 +913,11 @@ fn aesEncrypt() void {
         _ = kernel32.HeapFree(kernel32.GetProcessHeap().?, 0, padded_buffer.?);
     }
 }
+```
 
+### Decryption
+
+```zig title="main.zig"
 // Decryption example (equivalent to second C program)
 fn aesDecrypt() void {
     print("=== DECRYPTION EXAMPLE ===\n\n", .{});
@@ -981,20 +959,5 @@ fn aesDecrypt() void {
     if (str_len == 0) str_len = cipher_text.len;
 
     print("Data: {s}\n", .{cipher_text[0..str_len]});
-}
-
-pub fn main() !void {
-    print("Tiny-AES Zig Implementation\n", .{});
-    print("===========================\n\n", .{});
-
-    // Encryption example
-    aesEncrypt();
-
-    print("\n", .{});
-
-    // Decryption example
-    aesDecrypt();
-
-    return;
 }
 ```
